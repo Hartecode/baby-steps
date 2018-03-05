@@ -16,3 +16,4 @@ describe('index page', function () {
         res.should.have.status(200);
       });
   });
+});
