@@ -11,7 +11,11 @@ const app = express();
 //bring over Port & DATABASE_URL from config.js
 const { PORT, DATABASE_URL } = require('./config');
 
+const userRouter = require('./userrouter.js');
+
 app.use(express.static('public'));
+
+app.use('/users', userRouter);
 
 if (require.main === module) {
   app.listen(process.env.PORT || 8080, function () {
