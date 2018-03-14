@@ -1,5 +1,6 @@
 'use strict';
 
+//Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env
 require('dotenv').config();
 const express = require('express');
 //using mongoose for connecting to the server
@@ -40,7 +41,7 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-// A protected endpoint which needs a valid JWT to access it
+// A protected endpoint which needs a valid JWT to access it*******needs changing
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
@@ -49,38 +50,32 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 
 app.use(express.static('public'));
 
-app.use('/users', userRouter);
-
-if (require.main === module) {
-  app.listen(process.env.PORT || 8080, function () {
-    console.info(`App listening on ${this.address().port}`);
-  });
-}
 
 //if not the any useable end point then display a message
 app.use('*', function (req, res) {
   res.status(404).json({ message: 'Page Not Found' });
 });
 
+
 //the variable server is blank but will be assigned under runServer and will be used again in closerserver
 let server;
 
 //as stated this fundtion runs the server
-function runServer(databaseUrl, port = PORT) {
+function runServer() {
 
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, {useMongoClient: true}, err => {
+    mongoose.connect(DATABASE_URL, err => {
       if (err) {
         return reject(err);
       }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
+      server = app.listen(PORT, () => {
+        console.log(`Your app is listening on port ${PORT}`);
         resolve();
       })
-        .on('error', err => {
-          mongoose.disconnect();
-          reject(err);
-        });
+      .on('error', err => {
+      	mongoose.disconnect();
+      	reject(err);
+      });
     });
   });
 }
@@ -98,6 +93,10 @@ function closeServer() {
       });
     });
   });
+}
+
+if (require.main === module) {
+  runServer(DATABASE_URL).catch(err => console.error(err));
 }
 
 

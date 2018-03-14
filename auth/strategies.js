@@ -1,97 +1,56 @@
 'use strict';
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const passport = require('passport');
+const { Strategy: LocalStrategy } = require('passport-local');
 
-//importing userouter from users folder
-const { router: usersRouter } = require('./users');
-//importing authrouter from auth router.js, localStrategy from auth/index.js, and jwtStrategy from auth/index.js
-const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
+// Assigns the Strategy export to the name JwtStrategy using object destructuring
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Assigning_to_new_variable_names
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 
-mongoose.Promise = global.Promise;
+const { User } = require('../users/models');
+const { JWT_SECRET } = require('../config');
 
-//importing port and the database url from config.js
-const { PORT, DATABASE_URL } = require('./config');
-
-const app = express();
-
-// Logging
-app.use(morgan('common'));
-
-// CORS
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-  if (req.method === 'OPTIONS') {
-    return res.send(204);
-  }
-  next();
-});
-
-passport.use(localStrategy);
-passport.use(jwtStrategy);
-
-app.use('/api/users/', usersRouter);
-app.use('/api/auth/', authRouter);
-
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
-});
-
-//if not the any useable end point then display a message
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
-
-//the variable server is blank but will be assigned under runServer and will be used again in closerserver
-let server;
-
-//as stated this fundtion runs the server
-function runServer() {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, { useMongoClient: true }, err => {
-      if (err) {
-        return reject(err);
-      }
-      server = app
-        .listen(PORT, () => {
-          console.log(`Your app is listening on port ${PORT}`);
-          resolve();
-        })
-        .on('error', err => {
-          mongoose.disconnect();
-          reject(err);
+const localStrategy = new LocalStrategy((username, password, callback) => {
+  let user;
+  User.findOne({ username: username })
+    .then(_user => {
+      user = _user;
+      if (!user) {
+        // Return a rejected promise so we break out of the chain of .thens.
+        // Any errors like this will be handled in the catch block.
+        return Promise.reject({
+          reason: 'LoginError',
+          message: 'Incorrect username or password'
         });
+      }
+      return user.validatePassword(password);
+    })
+    .then(isValid => {
+      if (!isValid) {
+        return Promise.reject({
+          reason: 'LoginError',
+          message: 'Incorrect username or password'
+        });
+      }
+      return callback(null, user);
+    })
+    .catch(err => {
+      if (err.reason === 'LoginError') {
+        return callback(null, false, err);
+      }
+      return callback(err, false);
     });
-  });
-}
+});
 
-//as stated this function closes the server
-function closeServer() {
-  return mongoose.disconnect().then(() => {
-    return new Promise((resolve, reject) => {
-      console.log('Closing server');
-      server.close(err => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    });
-  });
-}
+const jwtStrategy = new JwtStrategy(
+  {
+    secretOrKey: JWT_SECRET,
+    // Look for the JWT as a Bearer auth header
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+    // Only allow HS256 tokens - the same as the ones we issue
+    algorithms: ['HS256']
+  },
+  (payload, done) => {
+    done(null, payload.user);
+  }
+);
 
-if (require.main === module) {
-  runServer().catch(err => console.error(err));
-}
-
-//exxport app, runServer, CloseServer
-module.exports = { app, runServer, closeServer };
+module.exports = { localStrategy, jwtStrategy };
