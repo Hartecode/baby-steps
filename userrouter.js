@@ -5,9 +5,9 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 
-const {UserInfo} = require('./models');
+// const {UserInfo} = require('./models');
 
-router.use(bodyParser.json());
+// router.use(bodyParser.json());
 
 //get posts
 router.get('/',(req, res) =>{
@@ -115,4 +115,4 @@ router.post('/', (req, res) => {
 // });
 
 
-module.exports = router;
+// module.exports = router;
