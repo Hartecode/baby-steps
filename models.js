@@ -39,7 +39,7 @@ const babySchema = mongoose.Schema({
     birthCity: String,
     birthWeight: String,
     birthLength: String,
-    milestones: [String]
+    milestones:  array 
   }
 });
 
