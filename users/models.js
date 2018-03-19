@@ -47,7 +47,8 @@ const babySchema = mongoose.Schema({
     birthCity: String,
     birthWeight: String,
     birthLength: String
-  }
+  },
+  userID: String
 });
 
 const milestonesSchema = mongoose.Schema({
@@ -82,6 +83,15 @@ UserSchema.methods.serialize = function() {
     email: this.email
   };
 };
+
+babySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    baby: this.baby,
+    userID: this.userID
+  };
+};
+
 
 
 const User = mongoose.model('User', UserSchema);

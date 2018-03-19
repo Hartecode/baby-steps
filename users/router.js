@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {User} = require('./models');
+const {User, Baby} = require('./models');
 
 const router = express.Router();
 
@@ -39,11 +39,7 @@ router.post('/', (req, res) => {
 
   // If the username and password aren't trimmed we give an error.  Users might
   // expect that these will work without trimming (i.e. they want the password
-  // "foobar ", including the space at the end).  We need to reject such values
-  // explicitly so the users know what's happening, rather than silently
-  // trimming them and expecting the user to understand.
-  // We'll silently trim the other fields, because they aren't credentials used
-  // to log in, so it's less of a problem.
+  // "foobar ", including the space at the end).  
   const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
@@ -140,34 +136,101 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.put('/:id/babys/', (req, res) => {
-//   // ensure that the id in the request path and the one in request body match
-//   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-//     const message = (
-//       `Request path id (${req.params.id}) and request body id ` +
-//       `(${req.body.id}) must match`);
-//     console.error(message);
-//     return res.status(400).json({ message: message });
-//   }
+//adding a new baby
+router.post('/baby/:id', (req, res) => {
+  const requiredFields = ['baby', 'userId'];
+  const missingField = requiredFields.find(field => !(field in req.body));
 
-//   const toUpdate = {};
-//   const requiredfeild = ['title','content', 'author', 'id'];
+  if (missingField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Missing field',
+      location: missingField
+    });
+  }
 
-//   requiredfeild.forEach(field => {
-//     if (field in req.body) {
-//       toUpdate[field] = req.body[field];
-//     }
-//   });
+  let {firstName = '', middleName = '', lastName = '', dateOfBirth = '', sex = '', birthCity = '', birthWeight = '', birthLength = '', userId} = req.body;
 
-//   BlogPosts
-//     // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-//     .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-//     .then(() => {
-//       console.log(`Updating blog item \`${req.params.id}\``);
-//       res.status(204).end();
-//     })
-//     .catch(err => res.status(500).json({ message: 'Internal server error' }));
-// });
+  firstName = firstName.trim();
+  middleName = middleName.trim();
+  lastName = lastName.trim();
+  dateOfBirth = dateOfBirth.trim();
+  sex = sex.trim();
+  birthCity = birthCity.trim();
+  birthLength = birthLength.trim();
+  birthWeight = birthWeight.trim();
+
+  return Baby.create({
+        baby: {
+          name: {
+            firstName,
+            middleName,
+            lastName
+          },
+          dateOfBirth,
+          sex,
+          Parents: {
+            mother: {
+              firstName,
+              middleName,
+              lastName
+            },
+            father: {
+              firstName,
+              middleName,
+              lastName
+            }
+          },
+          birthCity,
+          birthWeight,
+          birthLength
+        },
+        userId
+    })
+    .then(baby => {
+      return res.status(201).json(baby.serialize());
+    })
+    .catch(err => {
+      // Forward validation errors on to the client, otherwise give a 500
+      // error because something unexpected has happened
+      if (err.reason === 'ValidationError') {
+        return res.status(err.code).json(err);
+      }
+      res.status(500).json({code: 500, message: `Internal server error: ${err}`});
+    });
+});
+
+//update the user***not working
+router.put('/:id', (req, res) => {
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body id ` +
+      `(${req.body.id}) must match`);
+    console.error(message);
+    return res.status(400).json({ message: message });
+  }
+
+  const toUpdate = {};
+  const requiredFields = ['username', 'password','firstName', 'lastName', 'email', 'id'];
+
+
+  requiredFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
+
+  User
+    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .then(() => {
+      console.log(`Updating user \`${req.params.id}\``);
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
 
 //get all the user
 router.get('/', (req, res) => {
