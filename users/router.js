@@ -252,6 +252,13 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//get the full list of babies
+router.get('/baby', (req, res) => {
+  return Baby.find()
+    .then(babys => res.json(babys.map(baby => baby.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
 //delete the user from the database
 router.delete('/:id', (req, res) => {
   console.log(req.params.id);

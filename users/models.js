@@ -32,7 +32,7 @@ const babySchema = mongoose.Schema({
     },
     dateOfBirth: String,
     sex: String,
-    Parents: {
+    parents: {
       mother: {
         firstName: String,
         middleName: String,
@@ -87,7 +87,30 @@ UserSchema.methods.serialize = function() {
 babySchema.methods.serialize = function() {
   return {
     id: this._id,
-    baby: this.baby,
+    baby: {
+      name: {
+        firstName: this.baby.name.firstName || '',
+        middleName: this.baby.name.middleName || '',
+        lastName: this.baby.name.lastName || ''
+      },
+      dateOfBirth: this.baby.dateOfBirth || '',
+      sex: this.baby.sex || '',
+      parents: {
+        mother: {
+          firstName: this.baby.parents.mother.firstName || '',
+          middleName: this.baby.parents.mother.middleName || '',
+          lastName: this.baby.parents.mother.lastName || ''
+        },
+        father: {
+          firstName: this.baby.parents.father.firstName || '',
+          middleName: this.baby.parents.father.middleName || '',
+          lastName: this.baby.parents.father.lastName || ''
+        }
+      },
+      birthCity: this.baby.birthCity || '',
+      birthWeight: this.baby.birthWeight || '',
+      birthLength: this.baby.birthLength || ''
+    },
     userID: this.userID
   };
 };

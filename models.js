@@ -24,7 +24,7 @@ const babySchema = mongoose.Schema({
     },
     dateOfBirth: String,
     sex: String,
-    Parents: {
+    parents: {
       mother: {
         firstName: String,
         middleName: String,
