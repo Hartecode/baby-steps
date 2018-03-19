@@ -1,6 +1,80 @@
 'use strict';
 
-alert("Connected");
+//this will display the logIn HTML
+function logIn() {
+    $('.login-register').on('click','.login', function(){
+        console.log("log in: click");
+        $('.login-register').html(logInTemplate());
+        $('.login-register').addClass("box-structure");
+    });
+}
+
+//this will display the signup HTML
+function signUp() {
+    $('.login-register').on('click','.signup', function(){
+        console.log("sign up : click");
+        $('.login-register').html(signUpTemplate());
+        $('.login-register').addClass("box-structure");
+    });
+}
+
+//this returns the html code for login form
+function logInTemplate() {
+    return `<form>
+                <fieldset>
+                    <legend class="login-register-title"> LOGIN</legend>
+                    <label for="username">User Name:</label>
+                    <br>
+                    <input class="input-sizing" type="text" name="username">
+                    <br>
+                    <label for="password">Password:</label>
+                    <br>
+                    <input class="input-sizing" type="test" name="password">
+                    <br>
+                    <button class="loginButton" type="submit">Submit</button>
+                </fieldset>
+            </form>
+            <a href="#" class="signup"><p class="toggleReg">Sign up</p></a>`;
+}
+
+//this function displays the signup HTML 
+function signUpTemplate() {
+    return `<form>
+                <fieldset>
+                    <legend class="login-register-title"> Sign Up</legend>
+                    <label for="username">User Name:</label>
+                    <br>
+                    <input class="input-sizing" type="text" name="username">
+                    <br>
+                    <label for="password">Password:</label>
+                    <br>
+                    <input class="input-sizing" type="test" name="password">
+                    <br>
+                    <label for="firstname">First Name:</label>
+                    <br>
+                    <input class="input-sizing" type="test" name="firstname">
+                    <br>
+                    <label for="lastname">Last Name:</label>
+                    <br>
+                    <input class="input-sizing" type="test" name="lastname">
+                    <br>
+                    <label for="email">email:</label>
+                    <br>
+                    <input class="input-sizing" type="email" name="email">
+                    <br>
+                    <button class="loginButton" type="submit">Submit</button>
+                </fieldset>
+            </form>
+            <a href="#" class="login"><p class="toggleReg">LogIn</p></a>`;
+}
+
+//this code runs exclusivly for the index page
+function indexPage(){
+    logIn()
+    signUp()
+}
+
+$(indexPage());
 
 // this is mock data, but when we create our API
 // we'll have it return data that looks like this
@@ -63,4 +137,4 @@ function getAndDisplayStatusUpdates() {
 }
 
 //  on page load do this
-$(getAndDisplayStatusUpdates());
+// $(getAndDisplayStatusUpdates());
