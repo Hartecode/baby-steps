@@ -138,7 +138,7 @@ router.post('/', (req, res) => {
 
 //adding a new baby
 router.post('/baby/:id', (req, res) => {
-  const requiredFields = ['baby', 'userId'];
+  const requiredFields = ['baby', 'userID'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -150,7 +150,21 @@ router.post('/baby/:id', (req, res) => {
     });
   }
 
-  let {firstName = '', middleName = '', lastName = '', dateOfBirth = '', sex = '', birthCity = '', birthWeight = '', birthLength = '', userId} = req.body;
+  let userID = req.body.userID;
+  let firstName = req.body['baby']['name']['firstName'];
+  let middleName = req.body['baby']['name']['middleName'];
+  let lastName = req.body['baby']['name']['lastName'];
+  let dateOfBirth = req.body.baby.dateOfBirth;
+  let sex = req.body.baby.sex;
+  let motherFirstName = req.body['baby']['parents']['mother']['motherFirstName'];
+  let motherMiddleName = req.body['baby']['parents']['mother']['motherMiddleName'];
+  let motherLastName = req.body['baby']['parents']['mother']['motherLastName'];
+  let fatherFirstName = req.body['baby']['parents']['father']['fatherFirstName'];
+  let fatherMiddleName = req.body['baby']['parents']['father']['fatherMiddleName'];
+  let fatherLastName = req.body['baby']['parents']['father']['fatherLastName'];
+  let birthCity = req.body.baby.birthCity;
+  let birthWeight = req.body.baby.birthWeight;
+  let birthLength = req.body.baby.birthLength;
 
   firstName = firstName.trim();
   middleName = middleName.trim();
@@ -160,6 +174,7 @@ router.post('/baby/:id', (req, res) => {
   birthCity = birthCity.trim();
   birthLength = birthLength.trim();
   birthWeight = birthWeight.trim();
+  userID = userID.trim();
 
   return Baby.create({
         baby: {
@@ -170,26 +185,27 @@ router.post('/baby/:id', (req, res) => {
           },
           dateOfBirth,
           sex,
-          Parents: {
+          parents: {
             mother: {
-              firstName,
-              middleName,
-              lastName
+              motherFirstName,
+              motherMiddleName,
+              motherLastName
             },
             father: {
-              firstName,
-              middleName,
-              lastName
+              fatherFirstName,
+              fatherMiddleName,
+              fatherLastName
             }
           },
           birthCity,
           birthWeight,
           birthLength
         },
-        userId
+        userID
     })
-    .then(baby => {
-      return res.status(201).json(baby.serialize());
+    .then(babys => {
+      console.log(babys);
+      return res.status(201).json(babys.serialize());
     })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500
@@ -197,6 +213,7 @@ router.post('/baby/:id', (req, res) => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
+      console.log(err);
       res.status(500).json({code: 500, message: `Internal server error: ${err}`});
     });
 });

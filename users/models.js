@@ -34,14 +34,14 @@ const babySchema = mongoose.Schema({
     sex: String,
     parents: {
       mother: {
-        firstName: String,
-        middleName: String,
-        lastName: String
+        motherFirstName: String,
+        motherMiddleName: String,
+        motherLastName: String
       },
       father: {
-        firstName: String,
-        middleName: String,
-        lastName: String
+        fatherFirstName: String,
+        fatherMiddleName: String,
+        fatherLastName: String
       }
     },
     birthCity: String,
@@ -84,6 +84,7 @@ UserSchema.methods.serialize = function() {
   };
 };
 
+
 babySchema.methods.serialize = function() {
   return {
     id: this._id,
@@ -97,14 +98,14 @@ babySchema.methods.serialize = function() {
       sex: this.baby.sex || '',
       parents: {
         mother: {
-          firstName: this.baby.parents.mother.firstName || '',
-          middleName: this.baby.parents.mother.middleName || '',
-          lastName: this.baby.parents.mother.lastName || ''
+          motherFirstName: this.baby.parents.mother.motherFirstName || '',
+          motherMiddleName: this.baby.parents.mother.motherMiddleName || '',
+          motherLastName: this.baby.parents.mother.motherLastName || ''
         },
         father: {
-          firstName: this.baby.parents.father.firstName || '',
-          middleName: this.baby.parents.father.middleName || '',
-          lastName: this.baby.parents.father.lastName || ''
+          fatherFirstName: this.baby.parents.father.fatherFirstName || '',
+          fatherMiddleName: this.baby.parents.father.fatherMiddleName || '',
+          fatherLastName: this.baby.parents.father.fatherLastName || ''
         }
       },
       birthCity: this.baby.birthCity || '',
