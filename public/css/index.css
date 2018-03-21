@@ -47,6 +47,7 @@ h1,h2,h3,h4,h5,p {
 
 .login-body {
 	background-image: url("../pic/guillaume-de-germain-303020-unsplash.jpg");
+	/*Photo by Guillaume de Germain on Unsplash*/
 	background-position: center;
 	background-size: cover;
 	height: 100vh;
