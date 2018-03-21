@@ -277,6 +277,17 @@ router.get('/:id', (req, res) => {
 });
 
 
+//delete the user's baby from the database
+router.delete('/baby/:id', (req, res) => {
+  console.log(req.params.id);
+  Baby
+    .findByIdAndRemove(req.params.id)
+      .then(() => {
+        console.log(`You have deleted post id:${req.params.id}`);
+        res.status(204).end();
+      })
+      .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
 
 //delete the user from the database
 router.delete('/:id', (req, res) => {
