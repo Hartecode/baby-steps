@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {User, Baby} = require('./models');
+const {User, Baby, Milestone} = require('./models');
 
 const router = express.Router();
 
@@ -150,6 +150,17 @@ router.post('/baby/:id', (req, res) => {
     });
   }
 
+  const user = req.params.id;
+
+  if(req.body.userID != user) {
+    return res.status(500).json({
+      code: 400,
+      reason: 'ValidationError',
+      message: 'id must match endpoint',
+      location: 'userID'
+    });
+  }
+
   let userID = req.body.userID;
   let firstName = req.body['baby']['name']['firstName'];
   let middleName = req.body['baby']['name']['middleName'];
@@ -218,6 +229,58 @@ router.post('/baby/:id', (req, res) => {
     });
 });
 
+//add a new milestone
+router.post('/milestone/:id', (req, res) => {
+  const requiredFields = ['title', 'description', 'date', 'babyID'];
+  const missingField = requiredFields.find(field => !(field in req.body));
+
+  if (missingField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Missing field',
+      location: missingField
+    });
+  }
+
+  const baby = req.params.id;
+
+  if(req.body.babyID != baby) {
+    return res.status(500).json({
+      code: 400,
+      reason: 'ValidationError',
+      message: 'id must match endpoint',
+      location: 'babyID'
+    });
+  }
+
+  let {title = '', description = '', date = '', babyID = ''} = req.body;
+
+  title = title.trim();
+  description = description.trim();
+  date = date.trim();
+  babyID = babyID.trim();
+
+
+  return Milestone.create({
+    title,
+    description,
+    date,
+    babyID
+  })
+  .then(mile => res.status(201).json(mile.serialize()))
+  .catch(err => {
+      // Forward validation errors on to the client, otherwise give a 500
+      // error because something unexpected has happened
+      if (err.reason === 'ValidationError') {
+        return res.status(err.code).json(err);
+      }
+      console.log(err);
+      res.status(500).json({code: 500, message: `Internal server error: ${err}`});
+    });
+
+});
+
 //update the user***not working
 // router.put('/:id', (req, res) => {
 //   // ensure that the id in the request path and the one in request body match
@@ -263,6 +326,36 @@ router.get('/baby', (req, res) => {
     .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
+//get baby by userid
+router.get('/baby/:id', (req, res) => {
+  const user = req.params.id;
+  Baby
+    .find({ 
+      userID: user
+    })
+    .then(babys => res.json(babys.map(baby => baby.serialize())))
+    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+});
+
+//get the full list of milestones
+router.get('/milestone', (req, res) => {
+  return Milestone.find()
+    .then(miles => res.json(miles.map(mile => mile.serialize())))
+    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+});
+
+//get baby by userid
+router.get('/milestone/:id', (req, res) => {
+  const baby = req.params.id;
+  Milestone
+    .find({ 
+      babyID: baby
+    })
+    .then(miles => res.json(miles.map(mile => mile.serialize())))
+    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+});
+
+
 //get user by id
 router.get('/:id', (req, res) => {
   User
@@ -278,9 +371,22 @@ router.get('/:id', (req, res) => {
 
 
 //delete the user's baby from the database
+//code works but might want to add the abillity to delete the milesotnes associated with the baby ***
 router.delete('/baby/:id', (req, res) => {
   console.log(req.params.id);
   Baby
+    .findByIdAndRemove(req.params.id)
+      .then(() => {
+        console.log(`You have deleted post id:${req.params.id}`);
+        res.status(204).end();
+      })
+      .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
+
+//delete the miles's baby from the database by using the id of the milestone
+router.delete('/milestone/:id', (req, res) => {
+  console.log(req.params.id);
+  Milestone
     .findByIdAndRemove(req.params.id)
       .then(() => {
         console.log(`You have deleted post id:${req.params.id}`);

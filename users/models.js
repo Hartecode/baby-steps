@@ -54,7 +54,8 @@ const babySchema = mongoose.Schema({
 const milestonesSchema = mongoose.Schema({
         title: String,
         description: String,
-        date: String
+        date: String,
+        babyID: String
 });
 
 
@@ -116,6 +117,15 @@ babySchema.methods.serialize = function() {
   };
 };
 
+milestonesSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    title: this.title || '',
+    description: this.description || '',
+    date: this.date || '',
+    babyID: this.babyID
+  }
+}
 
 
 const User = mongoose.model('User', UserSchema);
