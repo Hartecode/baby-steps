@@ -374,13 +374,24 @@ router.get('/:id', (req, res) => {
 //code works but might want to add the abillity to delete the milesotnes associated with the baby ***
 router.delete('/baby/:id', (req, res) => {
   console.log(req.params.id);
+
+  const babysId = req.params.id;
+
   Baby
-    .findByIdAndRemove(req.params.id)
-      .then(() => {
-        console.log(`You have deleted post id:${req.params.id}`);
-        res.status(204).end();
-      })
-      .catch(err => res.status(500).json({ message: 'Internal server error' }));
+    .findByIdAndRemove(babysId)
+    .then(() => {
+      console.log(`You have deleted user baby id:${babysId}`);
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({ message: `Internal server error: ${err}` }));
+
+    // .then(() => {
+    //   Milestone
+    //   .findAllAndRemove({ 
+    //     babyID: babysId
+    //   });
+    // })
+  
 });
 
 //delete the miles's baby from the database by using the id of the milestone
