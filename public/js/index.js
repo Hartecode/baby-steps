@@ -5,7 +5,7 @@ function logIn() {
     $('.login-register').on('click','.login', function(){
         console.log("log in: click");
         $('.login-register').html(logInTemplate());
-        $('.login-register').addClass("box-structure");
+        $('.login-register').addClass("box-structure ");
     });
 }
 
@@ -14,7 +14,7 @@ function signUp() {
     $('.login-register').on('click','.signup', function(){
         console.log("sign up : click");
         $('.login-register').html(signUpTemplate());
-        $('.login-register').addClass("box-structure");
+        $('.login-register').addClass("box-structure ");
     });
 }
 
@@ -31,7 +31,7 @@ function logInTemplate() {
                     <br>
                     <input class="input-sizing password-login" type="test" name="password">
                     <br>
-                    <button class="loginButton" type="submit">Submit</button>
+                    <button class="loginButton signingInAcc" type="submit">Submit</button>
                 </fieldset>
             </form>
             <a href="#" class="signup"><p class="toggleReg">Sign up</p></a>`;
@@ -44,25 +44,25 @@ function signUpTemplate() {
                     <legend class="login-register-title"> Sign Up</legend>
                     <label for="username">User Name:</label>
                     <br>
-                    <input class="input-sizing" type="text" name="username">
+                    <input class="input-sizing username-signup" type="text" name="username">
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing" type="test" name="password">
+                    <input class="input-sizing password-signup" type="test" name="password">
                     <br>
                     <label for="firstname">First Name:</label>
                     <br>
-                    <input class="input-sizing" type="test" name="firstname">
+                    <input class="input-sizing firstname-signup" type="test" name="firstname">
                     <br>
                     <label for="lastname">Last Name:</label>
                     <br>
-                    <input class="input-sizing" type="test" name="lastname">
+                    <input class="input-sizing lastname-signup" type="test" name="lastname">
                     <br>
                     <label for="email">email:</label>
                     <br>
-                    <input class="input-sizing" type="email" name="email">
+                    <input class="input-sizing email-signup" type="email" name="email">
                     <br>
-                    <button class="loginButton" type="submit">Submit</button>
+                    <button class="loginButton signingUpNewAcc" type="submit">Submit</button>
                 </fieldset>
             </form>
             <a href="#" class="login"><p class="toggleReg">LogIn</p></a>`;
@@ -72,14 +72,15 @@ function signUpTemplate() {
 function indexPage(){
     logIn();
     signUp();
-    SignInAuht();
+    signInAuht();
+    signUpAuth();
 }
 
 //this function submits username & password and gets back jwt
-function SignInAuht() {
-    $('.login-register').on('submit', function(event){
+function signInAuht() {
+    $('.login-register').on('click', '.signingInAcc', function(event){
         event.preventDefault();
-        console.log("the submit button was pressed.")
+        console.log("the submit button was pressed.");
         const username = $('.username-login').val();
         console.log(username);
         const password = $('.password-login').val();
@@ -108,49 +109,52 @@ function SignInAuht() {
     })
 }
 
+//this function submits a new userinfo & longsIn
+function signUpAuth(){
+    console.log("signUpAuth: running");
+    $('.login-register').on('click', '.signingUpNewAcc', function(event){
+        event.preventDefault();
+        console.log("the submit button was pressed.");
+        const username = $('.username-signup').val();
+        const password = $('.password-signup').val();
+        const firstname = $('.firstname-signup').val();
+        console.log(firstname);
+        const lastname = $('.lastname-signup').val();
+        console.log(lastname);
+        const email = $('.email-signup').val();
+        $.ajax({
+            type:'POST',
+            url: '/api/users',
+            data: JSON.stringify({
+                "username": username,
+                "password": password,
+                "firstName": firstname,
+                "lastName": lastname,
+                "email": email
+            }),
+            dataType: 'json',
+            contentType: "application/json"
+        })
+        .done(function(json){
+            console.log(json);
+            window.open('/dashboard.html');
+        });
+
+    });
+}
+
 //
-function sendToken(data) {
+// function sendToken(data) {
     
-}
+// }
 
-//
-function postLogIn(username, password) {
-    return {
-        "username": username,
-        "password": password
-    };
-}
+// //
+// function postLogIn(username, password) {
+//     return {
+//         "username": username,
+//         "password": password
+//     };
+// }
 
-
+//run code
 $(indexPage());
-
-// this is mock data, but when we create our API
-// we'll have it return data that looks like this
-let MILE_STATUS_UPDATES = {
-	"milestoneUpdates": [
-        {
-            "id": "1111111",
-            "milestone": "Birth of the baby (“Hello World”)",
-            "description": "Bbay was born with out any issues",
-            "date": "01/02/18"
-        },
-        {
-            "id": "2222222",
-            "milestone": "Baby’s first outing",
-            "description": "We went to the park with the baby",
-            "date": "01/08/18"
-        },
-        {
-            "id": "333333",
-            "milestone": "The umbilical cord fell off.",
-            "description": "it fell off during bath time",
-            "date": "01/17/18"
-        },
-        {
-            "id": "4444444",
-            "milestone": "Baby is able to move head side to side and even lift it up during tummy time.",
-            "description": "He did it this after noon",
-            "date": "1/20/18"
-        }
-    ]
-};
