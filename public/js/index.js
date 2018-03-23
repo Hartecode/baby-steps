@@ -25,11 +25,11 @@ function logInTemplate() {
                     <legend class="login-register-title"> LOGIN</legend>
                     <label for="username">User Name:</label>
                     <br>
-                    <input class="input-sizing" type="text" name="username">
+                    <input class="input-sizing username-login" type="text" name="username">
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing" type="test" name="password">
+                    <input class="input-sizing password-login" type="test" name="password">
                     <br>
                     <button class="loginButton" type="submit">Submit</button>
                 </fieldset>
@@ -70,9 +70,57 @@ function signUpTemplate() {
 
 //this code runs exclusivly for the index page
 function indexPage(){
-    logIn()
-    signUp()
+    logIn();
+    signUp();
+    SignInAuht();
 }
+
+//this function submits username & password and gets back jwt
+function SignInAuht() {
+    $('.login-register').on('submit', function(event){
+        event.preventDefault();
+        console.log("the submit button was pressed.")
+        const username = $('.username-login').val();
+        console.log(username);
+        const password = $('.password-login').val();
+        console.log(password);
+        $.ajax({
+          type: "POST",
+          url: '/api/auth/login',
+          data: JSON.stringify({
+                "username": username,
+                "password": password
+            }),
+          dataType: 'json',
+          contentType: "application/json"
+        })
+        .done(function(json){
+            console.log(json);
+            window.open('/dashboard.html');
+        });
+        // $.post('/api/auth/login', {
+        // "username": username,
+        // "password": password
+        // });
+        // .done(function(data) {
+        //     console.log(data);
+        // });
+    })
+}
+
+//
+function sendToken(data) {
+    
+}
+
+//
+function postLogIn(username, password) {
+    return {
+        "username": username,
+        "password": password
+    };
+}
+
 
 $(indexPage());
 
@@ -106,35 +154,3 @@ let MILE_STATUS_UPDATES = {
         }
     ]
 };
-
-
-
-// this function's name and argument can stay the
-// same after we have a live API, but its internal
-// implementation will change. Instead of using a
-// timeout function that returns mock data, it will
-// use jQuery's AJAX functionality to make a call
-// to the server and then run the callbackFn
-function getRecentStatusUpdates(callbackFn) {
-    // we use a `setTimeout` to make this asynchronous
-    // as it would be with a real AJAX call.
-	setTimeout(function(){ callbackFn(MILE_STATUS_UPDATES)}, 1);
-}
-
-// this function stays the same when we connect
-// to real API later
-function displayStatusUpdates(data) {
-    for (let index in data.milestoneUpdates) {
-	   $('body').append(
-        `<p>${data.milestoneUpdates[index].date} ${data.milestoneUpdates[index].milestone}</p>`);
-    }
-}
-
-// this function can stay the same even when we
-// are connecting to real API
-function getAndDisplayStatusUpdates() {
-	getRecentStatusUpdates(displayStatusUpdates);
-}
-
-//  on page load do this
-// $(getAndDisplayStatusUpdates());
