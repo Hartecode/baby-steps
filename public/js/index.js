@@ -20,7 +20,7 @@ function signUp() {
 
 //this returns the html code for login form
 function logInTemplate() {
-    return `<form>
+    return `<form action:'/api/auth/login' method='POST'>
                 <fieldset>
                     <legend class="login-register-title"> LOGIN</legend>
                     <label for="username">User Name:</label>
@@ -39,7 +39,7 @@ function logInTemplate() {
 
 //this function displays the signup HTML 
 function signUpTemplate() {
-    return `<form>
+    return `<form action:'/api/users' method='POST'>
                 <fieldset>
                     <legend class="login-register-title"> Sign Up</legend>
                     <label for="username">User Name:</label>
@@ -50,13 +50,13 @@ function signUpTemplate() {
                     <br>
                     <input class="input-sizing password-signup" type="test" name="password">
                     <br>
-                    <label for="firstname">First Name:</label>
+                    <label for="firstName">First Name:</label>
                     <br>
-                    <input class="input-sizing firstname-signup" type="test" name="firstname">
+                    <input class="input-sizing firstname-signup" type="test" name="firstName">
                     <br>
-                    <label for="lastname">Last Name:</label>
+                    <label for="lastName">Last Name:</label>
                     <br>
-                    <input class="input-sizing lastname-signup" type="test" name="lastname">
+                    <input class="input-sizing lastname-signup" type="test" name="lastName">
                     <br>
                     <label for="email">email:</label>
                     <br>
@@ -68,13 +68,6 @@ function signUpTemplate() {
             <a href="#" class="login"><p class="toggleReg">LogIn</p></a>`;
 }
 
-//this code runs exclusivly for the index page
-function indexPage(){
-    logIn();
-    signUp();
-    signInAuht();
-    signUpAuth();
-}
 
 //this function submits username & password and gets back jwt
 function signInAuht() {
@@ -82,10 +75,13 @@ function signInAuht() {
         event.preventDefault();
         console.log("the submit button was pressed.");
         const username = $('.username-login').val();
-        console.log(username);
         const password = $('.password-login').val();
-        console.log(password);
-        $.ajax({
+        postAuthLogin(username,password);
+    });
+}
+
+function postAuthLogin(username,password) {
+    $.ajax({
           type: "POST",
           url: '/api/auth/login',
           data: JSON.stringify({
@@ -93,20 +89,17 @@ function signInAuht() {
                 "password": password
             }),
           dataType: 'json',
-          contentType: "application/json"
+          contentType: "application/json",
+          error: error => console.log(error)
         })
         .done(function(json){
             console.log(json);
-            window.open('/dashboard.html');
+            //the jwt is stored in browser
+            localStorage.setItem('token', json.authToken);
+            //the user Id is stored on to the browser
+            localStorage.setItem('userId', json.id);
+            window.location = 'dashboard.html';
         });
-        // $.post('/api/auth/login', {
-        // "username": username,
-        // "password": password
-        // });
-        // .done(function(data) {
-        //     console.log(data);
-        // });
-    })
 }
 
 //this function submits a new userinfo & longsIn
@@ -133,28 +126,26 @@ function signUpAuth(){
                 "email": email
             }),
             dataType: 'json',
-            contentType: "application/json"
+            contentType: "application/json",
+            error: error => console.log(error)
         })
         .done(function(json){
             console.log(json);
-            window.open('/dashboard.html');
+            postAuthLogin(username, password);
         });
 
     });
 }
 
-//
-// function sendToken(data) {
-    
-// }
 
-// //
-// function postLogIn(username, password) {
-//     return {
-//         "username": username,
-//         "password": password
-//     };
-// }
+//this code runs exclusivly for the index page
+function indexPage(){
+    logIn();
+    signUp();
+    signInAuht();
+    signUpAuth();
+}
+
 
 //run code
 $(indexPage());
