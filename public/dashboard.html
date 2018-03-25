@@ -21,48 +21,51 @@
 		<section role="region">
 			<div class="title-stage">
 				<h2>Baby(s)</h2>
-				<a href=""><h4>Add Baby</h4></a>
-				<form>
-					<fieldset>
-						<label for="firstName">First Name:</label>
-						<input type="test" name="firstName">
-						<label for="middleName">Middle Name:</label>
-						<input type="test" name="middleName">
-						<label for="lastName">Last Name:</label>
-						<input type="test" name="lastName">
-						<br>
-						<label for="sex">Sex:</label>
-						<input type="test" name="sex">
-						<label for="dateOfBirth">Date of Birth:</label>
-						<input type="test" name="dateOfBirth">
-						<label for="birthCity">Birth city:</label>
-						<input type="test" name="birthCity">
-						<br>
-						<label for="birthWeight">birth weight:</label>
-						<input type="test" name="birthWeight">
-						<label for="birthLength">birth length:</label>
-						<input type="test" name="birthLength">
-						<br>
-						<p>Parents</p>
-						<p>Mother</p>
-						<label type="motherFirstName">First Name:</label>
-						<input type="text" name="motherFirstName">
-						<label for="motherMiddleName">Middle Name:</label>
-						<input type="test" name="motherMiddleName">
-						<label for="motherLastName">Last Name:</label>
-						<input type="test" name="motherLastName">
-						<br>
-						<p>Father</p>
-						<label type="fatherFirstName">First Name:</label>
-						<input type="text" name="fatherFirstName">
-						<label for="fatherMiddleName">Middle Name:</label>
-						<input type="test" name="fatherMiddleName">
-						<label for="fatherLastName">Last Name:</label>
-						<input type="test" name="fatherLastName">
-						<br>
-						<button type="submit">Submit</button>
-					</fieldset>
-				</form>
+				<a class="addbaby" href=""><h4>Add Baby</h4></a>
+				<div>
+					<form class="babyfileinput">
+						<fieldset>
+							<label for="firstName">First Name:</label>
+							<input class="babyfirstname" type="text" name="firstName">
+							<label for="middleName">Middle Name:</label>
+							<input class="babymiddlename" type="text" name="middleName">
+							<label for="lastName">Last Name:</label>
+							<input class="babylastname" type="text" name="lastName">
+							<br>
+							<label for="sex">Sex:</label>
+							<input class="babygender" type="text" name="sex">
+							<label for="dateOfBirth">Date of Birth:</label>
+							<input class="dateofbirth" type="text" name="dateOfBirth">
+							<label for="birthCity">Birth city:</label>
+							<input class="birthCity" type="text" name="birthCity">
+							<br>
+							<label for="birthWeight">birth weight:</label>
+							<input class="birthweight" type="text" name="birthWeight">
+							<label for="birthLength">birth length:</label>
+							<input class="birthlength" type="text" name="birthLength">
+							<br>
+							<p>Parents</p>
+							<p>Mother</p>
+							<label type="motherFirstName">First Name:</label>
+							<input class="motherfirstname" type="text" name="motherFirstName">
+							<label for="motherMiddleName">Middle Name:</label>
+							<input class="mothermiddlename" type="text" name="motherMiddleName">
+							<label for="motherLastName">Last Name:</label>
+							<input class="motherlastname" type="text" name="motherLastName">
+							<br>
+							<p>Father</p>
+							<label type="fatherFirstName">First Name:</label>
+							<input class="fatherfirstname" type="text" name="fatherFirstName">
+							<label for="fatherMiddleName">Middle Name:</label>
+							<input class="fathermiddlename" type="text" name="fatherMiddleName">
+							<label for="fatherLastName">Last Name:</label>
+							<input class="fatherlastname" type="text" name="fatherLastName">
+							<br>
+							<button  type="submit">Submit</button>
+						</fieldset>
+					</form>
+				</div>
+				
 			</div>
 			<div class="listofbabys">
 				<div class="snapBaby box-structure">
@@ -87,6 +90,9 @@
 			
 		</section>
 	</main>
+
+	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/dashboard.js"></script>
 
 </body>
 </html>

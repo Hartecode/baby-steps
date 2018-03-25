@@ -97,7 +97,7 @@ function postAuthLogin(username,password) {
             //the jwt is stored in browser
             localStorage.setItem('token', json.authToken);
             //the user Id is stored on to the browser
-            localStorage.setItem('userId', json.id);
+            localStorage.setItem('userId', json.userId);
             window.location = 'dashboard.html';
         });
 }
