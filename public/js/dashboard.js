@@ -59,6 +59,7 @@ function submitBabyInfo(){
             contentType: "application/json",
             error: error => console.log(error)
 		});
+		getAllBabyInputs();
 		clearInputs();
 	})
 }
@@ -81,6 +82,7 @@ function clearInputs() {
 	$('.fatherlastname').val('');
 }
 
+//this function gets all the babies frothe server
 function getAllBabyInputs() {
 	$.getJSON(`/api/users/baby/${userId}`, function(json) {
 		listOfBabies = json.map(obj =>{
@@ -90,7 +92,7 @@ function getAllBabyInputs() {
 	});
 }
 
-
+//this is the html of the listed baby
 function babySnapShotHTML(babyObj) {
 	let babyId = babyObj.id;
 	let first = babyObj.baby.name.firstName;
@@ -117,11 +119,13 @@ function babySnapShotHTML(babyObj) {
 				</div>`
 }
 
+//when listed baby is clicked it saves the id  to baby id and opens the milesotne page
 $('.listofbabys').on('click', '.snapBaby', function() {
 	console.log($(this).attr('id'));
 	localStorage.setItem('babyId', $(this).attr('id'));
 	window.location = 'milestone.html';
 });
+
 
 function runDashBoard() {
 	submitBabyInfo();

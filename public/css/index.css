@@ -148,6 +148,10 @@ h1,h2,h3,h4,h5,p {
     padding-right: 10px;
 }
 
+.fullstone {
+    margin-bottom: 10px;
+}
+
 .fullstone:before {
     font-family: FontAwesome;
     content: "\f005";
