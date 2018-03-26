@@ -124,6 +124,8 @@ h1,h2,h3,h4,h5,p {
 
 .snapBaby {
 	min-height: 100px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .snapName {
@@ -138,4 +140,29 @@ h1,h2,h3,h4,h5,p {
 
 .snapMilestone {
 	display: inline-block;
+}
+
+.milestonelist {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.fullstone:before {
+    font-family: FontAwesome;
+    content: "\f005";
+}
+
+.milestonedate {
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.milestonetitle {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.milehidden {
+    margin-left: 20px;
 }

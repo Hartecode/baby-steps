@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="description" content="Recored your baby's milestones durinhg their first year.">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>baby steps</title>
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body class="dashboard-body">
+	<header role="banner">
+		<h1 class="logo">Baby Steps</h1>
+		<div class="navbar">
+			<div id="about" class="navbutton">About</div>
+			<div id="userinfo" class="navbutton">User Info</div>
+			<div id="signout" class="navbutton">Sign Out</div>
+		</div>	
+	</header>
+	<main role="main" class="container">
+		<section>
+			<form class="mileinput">
+				<fieldset>
+					<label for="date">Date:</label>
+					<input class="miledate" type="date" name="date">
+					<br>
+					<label for="milestones">Milestone:</label>
+					<br>
+					<input class="miletitle" type="text" name="milestones">
+					<div>
+						<label for="description">Description:</label>
+					<br>
+					<textarea class="miledescription" name="description"></textarea>
+					</div>
+					
+					<button type="submit">Submit</button>
+				</fieldset>
+			</form>	
+			<hr>
+		</section>
+		<section role="region" class="milestonelist">
+			<div class="fullstone">
+				<div class="milestonedate">06/20/2018</div>
+				<div class="milestonetitle">Visted the Park</div>
+				<div class="milehidden">
+					<div class="milestonedesc">On this day we visisted the park on the upper east side. He truely enjoyed his time there.</div>	
+					<button class="deletstone">delete</button>
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/milestone.js"></script>
+
+</body>
+</html>

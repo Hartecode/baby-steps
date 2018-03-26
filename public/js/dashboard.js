@@ -2,14 +2,14 @@
 
 const token = localStorage.getItem('token');
 const userId = localStorage.getItem('userId');
+let listOfBabies;
 
 console.log(token);
 console.log(userId);
 
+//this function submits a new post of a baby under the current user id
 function submitBabyInfo(){
-	console.log('babyfileinput: running');
 	$('.babyfileinput').on('submit', function(event) {
-		console.log("submit pressed")
 		event.preventDefault();
 		const babyFirstName = $('.babyfirstname').val();
 		const babyMiddleName = $('.babymiddlename').val();
@@ -63,6 +63,7 @@ function submitBabyInfo(){
 	})
 }
 
+//this function clears the inputs on the dash board
 function clearInputs() {
 	$('.babyfirstname').val('');
 	$('.babymiddlename').val('');
@@ -81,11 +82,50 @@ function clearInputs() {
 }
 
 function getAllBabyInputs() {
-
+	$.getJSON(`/api/users/baby/${userId}`, function(json) {
+		listOfBabies = json.map(obj =>{
+			return babySnapShotHTML(obj);
+		});
+		$('.listofbabys').html(listOfBabies);
+	});
 }
+
+
+function babySnapShotHTML(babyObj) {
+	let babyId = babyObj.id;
+	let first = babyObj.baby.name.firstName;
+	let middle = babyObj.baby.name.middleName;
+	let last = babyObj.baby.name.lastName;
+	let age = babyObj.baby.dateOfBirth;
+	return `<div id="${babyId}"class="snapBaby box-structure">
+					<div class="snapName">
+						<h4>Name:</h4>
+						<p>${first} ${middle} ${last}</p>
+					</div>
+					<div class="snapAge">
+						<h4>Age:</h4>
+						<div class="currentage">${age}</div>
+						<p>months</p>
+					</div>
+					<div class="snapMilestone">
+						<h4>Recent Milestone:</h4>
+						<div class="milestone">
+							<div class="stonedate">06/20/18</div>
+							<div class="stonetitle">Took the baby out to the mesuime for the first time</div>
+						</div>
+					</div>
+				</div>`
+}
+
+$('.listofbabys').on('click', '.snapBaby', function() {
+	console.log($(this).attr('id'));
+	localStorage.setItem('babyId', $(this).attr('id'));
+	window.location = 'milestone.html';
+});
 
 function runDashBoard() {
 	submitBabyInfo();
+	getAllBabyInputs();
 }
 
 $(runDashBoard());
