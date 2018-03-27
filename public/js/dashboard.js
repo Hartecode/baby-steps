@@ -126,6 +126,10 @@ $('.listofbabys').on('click', '.snapBaby', function() {
 	window.location = 'milestone.html';
 });
 
+//when add baby link is clicked the form expands
+$('.addbaby').on('click', function() {
+	$('.babyforminput').toggleClass('hidden');
+});
 
 function runDashBoard() {
 	submitBabyInfo();

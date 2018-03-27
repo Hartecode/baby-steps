@@ -59,8 +59,12 @@ function milestoneHTML(obj) {
 				<div class="milestonedate">${stoneDate}</div>
 				<div class="milestonetitle">${stoneTitle}</div>
 				<div class="milehidden">
-					<div class="milestonedesc">${stoneDec}</div>	
-					<button class="deletstone">delete</button>
+					<div class="milestonedesc">${stoneDec}</div>
+					<div>
+						<button class="editstone">edit</button>	
+						<button class="deletstone">delete</button>
+					</div>
+					
 				</div>
 
 			</div>`;
