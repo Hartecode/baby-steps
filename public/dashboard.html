@@ -7,6 +7,7 @@
 	<title>baby steps</title>
 	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/grid.css">
 </head>
 <body class="dashboard-body">
 	<header role="banner">
@@ -21,46 +22,103 @@
 		<section role="region">
 			<div class="title-stage">
 				<h2>Baby(s)</h2>
-				<a class="addbaby" href=""><h4>Add Baby</h4></a>
-				<div>
+				<a class="addbaby" href="#"><h4>Add Baby</h4></a>
+				<div class="babyforminput hidden">
 					<form class="babyfileinput">
-						<fieldset>
-							<label for="firstName">First Name:</label>
-							<input class="babyfirstname" type="text" name="firstName">
-							<label for="middleName">Middle Name:</label>
-							<input class="babymiddlename" type="text" name="middleName">
-							<label for="lastName">Last Name:</label>
-							<input class="babylastname" type="text" name="lastName">
-							<br>
-							<label for="sex">Sex:</label>
-							<input class="babygender" type="text" name="sex">
-							<label for="dateOfBirth">Date of Birth:</label>
-							<input class="dateofbirth" type="text" name="dateOfBirth">
-							<label for="birthCity">Birth city:</label>
-							<input class="birthCity" type="text" name="birthCity">
-							<br>
-							<label for="birthWeight">birth weight:</label>
-							<input class="birthweight" type="text" name="birthWeight">
-							<label for="birthLength">birth length:</label>
-							<input class="birthlength" type="text" name="birthLength">
-							<br>
-							<p>Parents</p>
-							<p>Mother</p>
-							<label type="motherFirstName">First Name:</label>
-							<input class="motherfirstname" type="text" name="motherFirstName">
-							<label for="motherMiddleName">Middle Name:</label>
-							<input class="mothermiddlename" type="text" name="motherMiddleName">
-							<label for="motherLastName">Last Name:</label>
-							<input class="motherlastname" type="text" name="motherLastName">
-							<br>
-							<p>Father</p>
-							<label type="fatherFirstName">First Name:</label>
-							<input class="fatherfirstname" type="text" name="fatherFirstName">
-							<label for="fatherMiddleName">Middle Name:</label>
-							<input class="fathermiddlename" type="text" name="fatherMiddleName">
-							<label for="fatherLastName">Last Name:</label>
-							<input class="fatherlastname" type="text" name="fatherLastName">
-							<br>
+						<fieldset class="row">
+							<h3>Baby</h3>
+							<div class="row">
+								<div class="col-3">
+									<label for="firstName">First Name:</label>
+									<br>
+									<input class="babyfirstname" type="text" name="firstName">
+								</div>
+								<div class="col-3">
+									<label for="middleName">Middle Name:</label>
+									<br>
+									<input class="babymiddlename" type="text" name="middleName">
+								</div>
+								<div class="col-3">
+									<label for="lastName">Last Name:</label>
+									<br>
+									<input class="babylastname" type="text" name="lastName">
+								</div>
+								<div class="col-3">
+									<label for="sex"> Sex:</label>
+									<br>
+									<select class="babygender"name="sex">
+									    <option value="male">Male</option>
+									    <option value="female">Female</option>
+	  								</select>
+								</div>
+							</div>
+
+							<div class="row">
+								
+								<div class="col-3">
+									<label for="dateOfBirth">Date of Birth:</label>
+									<br>
+									<input class="dateofbirth" type="date" name="dateOfBirth">
+								</div>
+								<div class="col-3">
+									<label for="birthLength">birth length:</label>
+									<br>
+									<input class="birthlength" type="text" name="birthLength">
+								</div>
+								<div class="col-3">
+									<label for="birthCity">Birth city:</label>
+									<br>
+									<input class="birthCity" type="text" name="birthCity">
+								</div>
+								<div class="col-3">
+									<label for="birthWeight">birth weight:</label>
+									<br>
+									<input class="birthweight" type="text" name="birthWeight">
+								</div>
+							</div>
+
+							<h3>Parents</h3>
+							
+							<div class="row">
+								<h4>Mother</h4>
+								<div class="col-4">
+									<label type="motherFirstName">First Name:</label>
+									<br>
+									<input class="motherfirstname" type="text" name="motherFirstName">
+								</div>
+								<div class="col-4">
+									<label for="motherMiddleName">Middle Name:</label>
+									<br>
+									<input class="mothermiddlename" type="text" name="motherMiddleName">
+								</div>
+								<div class="col-4">
+									<label for="motherLastName">Last Name:</label>
+									<br>
+									<input class="motherlastname" type="text" name="motherLastName">
+								</div>
+							</div>
+							
+							
+							<div class="row">
+								<h4>Father</h4>
+								<div class="col-4">
+									<label type="fatherFirstName">First Name:</label>
+									<br>
+									<input class="fatherfirstname" type="text" name="fatherFirstName">
+								</div>
+								<div class="col-4">
+									<label for="fatherMiddleName">Middle Name:</label>
+									<br>
+									<input class="fathermiddlename" type="text" name="fatherMiddleName">
+								</div>
+								<div class="col-4">
+									<label for="fatherLastName">Last Name:</label>
+									<br>
+									<input class="fatherlastname" type="text" name="fatherLastName">
+								</div>
+							</div>
+							
+
 							<button  type="submit">Submit</button>
 						</fieldset>
 					</form>

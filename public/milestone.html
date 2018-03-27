@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/grid.css">
 </head>
 <body class="dashboard-body">
 	<header role="banner">
@@ -21,20 +22,26 @@
 	<main role="main" class="container">
 		<section>
 			<form class="mileinput">
-				<fieldset>
-					<label for="date">Date:</label>
-					<input class="miledate" type="date" name="date">
-					<br>
-					<label for="milestones">Milestone:</label>
-					<br>
-					<input class="miletitle" type="text" name="milestones">
-					<div>
-						<label for="description">Description:</label>
-					<br>
-					<textarea class="miledescription" name="description"></textarea>
+				<fieldset class="row">
+					<div class="col-3">
+						<label for="date">Date:</label>
+						<br>
+						<input class="miledate" type="date" name="date">
+						<br>
+						<label for="milestones">Milestone:</label>
+						<br>
+						<input class="miletitle" type="text" name="milestones">
 					</div>
 					
-					<button type="submit">Submit</button>
+					<div class="col-6">
+						<label for="description">Description:</label>
+						<br>
+						<textarea class="miledescription" rows="5" name="description"></textarea>
+					</div>
+					<div class="col-3">
+						<button type="submit">Submit</button>
+					</div>
+					
 				</fieldset>
 			</form>	
 			<hr>

@@ -31,6 +31,11 @@ h1,h2,h3,h4,h5,p {
 	margin: 0;
 }
 
+textarea {
+  resize: none;
+  width: 100%;
+}
+
 .logo {
 	margin: 0;
 	float: left;
@@ -152,9 +157,16 @@ h1,h2,h3,h4,h5,p {
     margin-bottom: 10px;
 }
 
-.fullstone:before {
+.fullstone::before {
     font-family: FontAwesome;
     content: "\f005";
+
+}
+
+.fullstone::after {
+    font-family: FontAwesome;
+    content: "\f078";
+    cursor: pointer;
 }
 
 .milestonedate {
@@ -170,3 +182,9 @@ h1,h2,h3,h4,h5,p {
 .milehidden {
     margin-left: 20px;
 }
+
+.hidden {
+    overflow: hidden;
+    height: 0;
+}
+
