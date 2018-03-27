@@ -188,3 +188,27 @@ textarea {
     height: 0;
 }
 
+/*buttons*/
+.btn {
+    border: none;
+    min-height: 25px;
+    border-radius: 15%;
+    outline: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.posbtn {
+  background-color: #4acf4a;
+  font-size: 16px;
+}
+
+.negbtn {
+  background-color: red;
+  font-size: 16px;
+}
+
+.nutrbtn {
+  background-color: #f2db73;
+  font-size: 16px;
+}

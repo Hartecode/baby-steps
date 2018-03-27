@@ -61,8 +61,8 @@ function milestoneHTML(obj) {
 				<div class="milehidden">
 					<div class="milestonedesc">${stoneDec}</div>
 					<div>
-						<button class="editstone">edit</button>	
-						<button class="deletstone">delete</button>
+						<button class="editstone btn nutrbtn">edit</button>	
+						<button class="deletstone btn negbtn">delete</button>
 					</div>
 					
 				</div>
