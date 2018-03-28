@@ -163,11 +163,11 @@ textarea {
 
 }
 
-.fullstone::after {
+/*.fullstone::after {
     font-family: FontAwesome;
     content: "\f078";
     cursor: pointer;
-}
+}*/
 
 .milestonedate {
     display: inline-block;
@@ -177,6 +177,10 @@ textarea {
 .milestonetitle {
     display: inline-block;
     margin-left: 10px;
+}
+
+.milebtn {
+    display: inline-block;
 }
 
 .milehidden {

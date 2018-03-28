@@ -1,10 +1,18 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
+
+const { router: authRouter, localStrategy, jwtStrategy } = require('../auth');
 const {User, Baby, Milestone} = require('./models');
 
 const router = express.Router();
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // const jsonParser = bodyParser.json();
 router.use(bodyParser.json());
@@ -137,7 +145,7 @@ router.post('/', (req, res) => {
 });
 
 //adding a new baby
-router.post('/baby/:id', (req, res) => {
+router.post('/baby/:id', jwtAuth, (req, res) => {
   const requiredFields = ['baby', 'userID'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -320,14 +328,14 @@ router.get('/', (req, res) => {
 });
 
 //get the full list of babies
-router.get('/baby', (req, res) => {
+router.get('/baby',  (req, res) => {
   return Baby.find()
     .then(babys => res.json(babys.map(baby => baby.serialize())))
     .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
 //get baby by userid
-router.get('/baby/:id', (req, res) => {
+router.get('/baby/:id', jwtAuth, (req, res) => {
   const user = req.params.id;
   Baby
     .find({ 

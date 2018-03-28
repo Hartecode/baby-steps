@@ -95,7 +95,8 @@ function postAuthLogin(username,password) {
         .done(function(json){
             console.log(json);
             //the jwt is stored in browser
-            localStorage.setItem('token', json.authToken);
+            window.sessionStorage.accessToken = json.authToken;
+            // localStorage.setItem('token', json.authToken);
             //the user Id is stored on to the browser
             localStorage.setItem('userId', json.userId);
             window.location = 'dashboard.html';

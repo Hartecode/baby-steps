@@ -1,10 +1,10 @@
 'use strict';
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 const userId = localStorage.getItem('userId');
 let listOfBabies;
 
-console.log(token);
+// console.log(token);
 console.log(userId);
 
 //this function submits a new post of a baby under the current user id
@@ -28,6 +28,12 @@ function submitBabyInfo(){
 		$.ajax({
 			type:'POST',
             url: `/api/users/baby/${userId}`,
+            beforeSend : function(xhr) {
+		      // set header if JWT is set
+		      if (window.sessionStorage.accessToken) {
+		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+		      }
+		 	},
             data: JSON.stringify({
                 'baby': {
 		          'name': {
@@ -57,7 +63,12 @@ function submitBabyInfo(){
             }),
             dataType: 'json',
             contentType: "application/json",
-            error: error => console.log(error)
+            error:  error => {
+				if(error.responseText === 'Unauthorized') {
+					window.location = 'index.html';
+				}
+				console.log(error);
+			}
 		});
 		getAllBabyInputs();
 		clearInputs();
@@ -84,13 +95,38 @@ function clearInputs() {
 
 //this function gets all the babies frothe server
 function getAllBabyInputs() {
-	$.getJSON(`/api/users/baby/${userId}`, function(json) {
-		listOfBabies = json.map(obj =>{
+	// $.getJSON(`/api/users/baby/${userId}`, function(json) {
+	// 	listOfBabies = json.map(obj =>{
+	// 		return babySnapShotHTML(obj);
+	// 	});
+	// 	$('.listofbabys').html(listOfBabies);
+	// });
+	$.ajax({
+		type:'GET',
+        url: `/api/users/baby/${userId}`,
+        beforeSend : function(xhr) {
+		      // set header if JWT is set
+		      if (window.sessionStorage.accessToken) {
+		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+		      }
+		 },
+		error: error => {
+			if(error.responseText === 'Unauthorized') {
+				window.location = 'index.html';
+			}
+			console.log(error);
+		},
+		success: function(json) {
+				listOfBabies = json.map(obj =>{
 			return babySnapShotHTML(obj);
 		});
-		$('.listofbabys').html(listOfBabies);
-	});
+		$('.listofbabys').html(listOfBabies);		}
+	})
 }
+
+
+
+
 
 //this is the html of the listed baby
 function babySnapShotHTML(babyObj) {
@@ -112,8 +148,8 @@ function babySnapShotHTML(babyObj) {
 					<div class="snapMilestone">
 						<h4>Recent Milestone:</h4>
 						<div class="milestone">
-							<div class="stonedate">06/20/18</div>
-							<div class="stonetitle">Took the baby out to the mesuime for the first time</div>
+							<div class="stonedate"></div>
+							<div class="stonetitle"></div>
 						</div>
 					</div>
 				</div>`
