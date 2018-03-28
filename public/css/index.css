@@ -147,6 +147,15 @@ textarea {
 	display: inline-block;
 }
 
+.stonedate {
+    display: inline-block;
+}
+
+.stonetitle {
+    display: inline-block;
+    margin-left: 20px;
+}
+
 .milestonelist {
     padding-top: 20px;
     padding-left: 10px;
@@ -163,11 +172,6 @@ textarea {
 
 }
 
-/*.fullstone::after {
-    font-family: FontAwesome;
-    content: "\f078";
-    cursor: pointer;
-}*/
 
 .milestonedate {
     display: inline-block;
@@ -191,6 +195,7 @@ textarea {
     overflow: hidden;
     height: 0;
 }
+
 
 /*buttons*/
 .btn {

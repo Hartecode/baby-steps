@@ -122,6 +122,25 @@ function getAllBabyInputs() {
 		});
 		$('.listofbabys').html(listOfBabies);		}
 	})
+	.done(function(){
+		let ids = $('.snapBaby').map(function() {
+		  return $(this).attr('id');
+		});
+		for(let i = 0; i < ids.length; i++) {
+			$.getJSON(`/api/users/milestone/${ids[i]}`, function(data) {
+				console.log(data);
+				if(data.length === 0 ){
+					$(`#${ids[i]} .stonetitle`).text('Currently no milestones posted.');
+				} else {
+					let mileDate = data[0].date;
+					let mileTitle = data[0].title;
+					$(`#${ids[i]} .stonedate`).text(mileDate);
+					$(`#${ids[i]} .stonetitle`).text(mileTitle);
+				}
+				
+			});
+		}		
+	});
 }
 
 
