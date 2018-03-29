@@ -157,10 +157,11 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	let editItemId = $(this).closest('.mile-edit').find('form').attr('id');
 	let date = $(this).closest('.mile-edit').find('.miledate-edit').val();
 	let title = $(this).closest('.mile-edit').find('.miletitle-edit').val();
-	let desc = $(this).closest('.mile-edit').find('.miledescription-edit').text();
+	let desc = $(this).closest('.mile-edit').find('.miledescription-edit').val();
+	console.log(desc);
 	$.ajax({
 		type: "PUT",
-		url: `/milestone/${editItemId}`,
+		url: `api/users/milestone/${editItemId}`,
 		beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -169,15 +170,17 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 		 }, 
 		data: JSON.stringify({
 				"id": editItemId,
-	            "title": milestoneTitle,
-				"description": milestoneDec,
-				"date": milestoneDate,
+	            "title": title,
+				"description": desc,
+				"date": date
 	    }),
 	    dataType: 'json',
 	    contentType: "application/json",
 	    error: error => console.log(error)
 	});
 	$(this).closest('.modal').fadeOut();
+	$(this).closest('.modal').empty();
+	getAllMilestones();
 });
 
 
