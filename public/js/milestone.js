@@ -56,10 +56,11 @@ function milestoneHTML(obj) {
 	let stoneTitle = obj.title;
 	let stoneDec = obj.description;
 	return `<div id="${stoneId}" class="fullstone">
+				<div class="stonecontainer">
 				<div class="milestonedate">${stoneDate}</div>
 				<div class="milestonetitle">${stoneTitle}</div>
-				<div class="milebtn btn"><button>More</button></div>
-
+				<div class="milebtn"><button class="btn">More</button></div>
+				</div>
 				<div class="milehidden">
 					<div class="milestonedesc">${stoneDec}</div>
 					<div>

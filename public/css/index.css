@@ -166,25 +166,41 @@ textarea {
     margin-bottom: 10px;
 }
 
-.fullstone::before {
+.stonecontainer::before {
     font-family: FontAwesome;
     content: "\f005";
-
+    float: left;
+    margin-right: 10px;
 }
 
+.stonecontainer {
+    margin-bottom: 5px;
+}
+
+.stonecontainer:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
 
 .milestonedate {
-    display: inline-block;
+   float: left;
     margin-left: 2px;
 }
 
 .milestonetitle {
-    display: inline-block;
+   float: left;
     margin-left: 10px;
 }
 
 .milebtn {
-    display: inline-block;
+    float: right;
+}
+
+.milebtn .btn {
+    margin: 0px;
 }
 
 .milehidden {
