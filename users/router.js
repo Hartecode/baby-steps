@@ -238,7 +238,7 @@ router.post('/baby/:id', jwtAuth, (req, res) => {
 });
 
 //add a new milestone
-router.post('/milestone/:id', (req, res) => {
+router.post('/milestone/:id', jwtAuth, (req, res) => {
   const requiredFields = ['title', 'description', 'date', 'babyID'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -291,34 +291,64 @@ router.post('/milestone/:id', (req, res) => {
 
 //update the user***not working
 // router.put('/:id', (req, res) => {
-//   // ensure that the id in the request path and the one in request body match
-//   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-//     const message = (
-//       `Request path id (${req.params.id}) and request body id ` +
-//       `(${req.body.id}) must match`);
-//     console.error(message);
-//     return res.status(400).json({ message: message });
-//   }
+  // ensure that the id in the request path and the one in request body match
+  // if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+  //   const message = (
+  //     `Request path id (${req.params.id}) and request body id ` +
+  //     `(${req.body.id}) must match`);
+  //   console.error(message);
+  //   return res.status(400).json({ message: message });
+  // }
 
-//   const toUpdate = {};
-//   const requiredFields = ['username', 'password','firstName', 'lastName', 'email', 'id'];
+  // const toUpdate = {};
+  // const requiredFields = ['username', 'password','firstName', 'lastName', 'email', 'id'];
 
 
-//   requiredFields.forEach(field => {
-//     if (field in req.body) {
-//       toUpdate[field] = req.body[field];
-//     }
-//   });
+  // requiredFields.forEach(field => {
+  //   if (field in req.body) {
+  //     toUpdate[field] = req.body[field];
+  //   }
+  // });
 
-//   User
-//     // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-//     .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-//     .then(() => {
-//       console.log(`Updating user \`${req.params.id}\``);
-//       res.status(204).end();
-//     })
-//     .catch(err => res.status(500).json({ message: 'Internal server error' }));
+  // User
+  //   // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+  //   .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+  //   .then(() => {
+  //     console.log(`Updating user \`${req.params.id}\``);
+  //     res.status(204).end();
+  //   })
+  //   .catch(err => res.status(500).json({ message: 'Internal server error' }));
 // });
+
+//update the selected milestone post
+router.put('/milestone/:id', jwtAuth, (req, res) =>{
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body id ` +
+      `(${req.body.id}) must match`);
+    console.error(message);
+    return res.status(400).json({ message: message });
+  }
+
+  const toUpdate = {};
+  const requiredFields = ['id', 'date','title', 'description'];
+
+
+  requiredFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
+
+  Milestone
+    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .then(() => {
+      console.log(`Updating user \`${req.params.id}\``);
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
 
 //get all the user
 router.get('/', (req, res) => {
@@ -353,7 +383,7 @@ router.get('/milestone', (req, res) => {
 });
 
 //get baby by userid
-router.get('/milestone/:id', (req, res) => {
+router.get('/milestone/:id', jwtAuth, (req, res) => {
   const baby = req.params.id;
   Milestone
     .find({ 
@@ -403,7 +433,7 @@ router.delete('/baby/:id', (req, res) => {
 });
 
 //delete the miles's baby from the database by using the id of the milestone
-router.delete('/milestone/:id', (req, res) => {
+router.delete('/milestone/:id', jwtAuth, (req, res) => {
   console.log(req.params.id);
   Milestone
     .findByIdAndRemove(req.params.id)
