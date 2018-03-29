@@ -7,7 +7,10 @@
 	<title>baby steps</title>
 	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/solid.css" integrity="sha384-29Ax2Ao1SMo9Pz5CxU1KMYy+aRLHmOu6hJKgWiViCYpz3f9egAJNwjnKGgr+BXDN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/fontawesome.css" integrity="sha384-Lyz+8VfV0lv38W729WFAmn77iH5OSroyONnUva4+gYaQTic3iI2fnUKtDSpbVf0J" crossorigin="anonymous">
+
+
 	<link rel="stylesheet" type="text/css" href="css/grid.css">
 </head>
 <body class="dashboard-body">
@@ -20,6 +23,115 @@
 		</div>	
 	</header>
 	<main role="main" class="container">
+
+		<section class="baby-edit modal">
+				<form class="babyfileinput modal-content">
+						<div><i class="fas fa-times fa-3x"></i></div>
+						<fieldset class="row">
+							<h3>Baby</h3>
+							<div class="row">
+								<div class="col-3">
+									<label for="firstName">First Name:</label>
+									<br>
+									<input class="babyfirstname" type="text" name="firstName">
+								</div>
+								<div class="col-3">
+									<label for="middleName">Middle Name:</label>
+									<br>
+									<input class="babymiddlename" type="text" name="middleName">
+								</div>
+								<div class="col-3">
+									<label for="lastName">Last Name:</label>
+									<br>
+									<input class="babylastname" type="text" name="lastName">
+								</div>
+								<div class="col-3">
+									<label for="sex"> Sex:</label>
+									<br>
+									<select class="babygender"name="sex">
+									    <option value="male">Male</option>
+									    <option value="female">Female</option>
+	  								</select>
+								</div>
+							</div>
+
+							<div class="row">
+								
+								<div class="col-3">
+									<label for="dateOfBirth">Date of Birth:</label>
+									<br>
+									<input class="dateofbirth" type="date" name="dateOfBirth">
+								</div>
+								<div class="col-3">
+									<label for="birthLength">birth length:</label>
+									<br>
+									<input class="birthlength" type="text" name="birthLength">
+								</div>
+								<div class="col-3">
+									<label for="birthCity">Birth city:</label>
+									<br>
+									<input class="birthCity" type="text" name="birthCity">
+								</div>
+								<div class="col-3">
+									<label for="birthWeight">birth weight:</label>
+									<br>
+									<input class="birthweight" type="text" name="birthWeight">
+								</div>
+							</div>
+
+							<h3>Parents</h3>
+							
+							<div class="row">
+								<h4>Mother</h4>
+								<div class="col-4">
+									<label type="motherFirstName">First Name:</label>
+									<br>
+									<input class="motherfirstname" type="text" name="motherFirstName">
+								</div>
+								<div class="col-4">
+									<label for="motherMiddleName">Middle Name:</label>
+									<br>
+									<input class="mothermiddlename" type="text" name="motherMiddleName">
+								</div>
+								<div class="col-4">
+									<label for="motherLastName">Last Name:</label>
+									<br>
+									<input class="motherlastname" type="text" name="motherLastName">
+								</div>
+							</div>
+							
+							
+							<div class="row">
+								<h4>Father</h4>
+								<div class="col-4">
+									<label type="fatherFirstName">First Name:</label>
+									<br>
+									<input class="fatherfirstname" type="text" name="fatherFirstName">
+								</div>
+								<div class="col-4">
+									<label for="fatherMiddleName">Middle Name:</label>
+									<br>
+									<input class="fathermiddlename" type="text" name="fatherMiddleName">
+								</div>
+								<div class="col-4">
+									<label for="fatherLastName">Last Name:</label>
+									<br>
+									<input class="fatherlastname" type="text" name="fatherLastName">
+								</div>
+							</div>
+							<div class="">
+								<button class="btn posbtn" type="submit">Submit</button>
+							</div>
+							
+						</fieldset>
+					</form>
+				</div>	
+			</div>
+		</section>
+
+		<section class="mile-edit modal">
+		</section>
+
 		<section>
 			<form class="mileinput">
 				<fieldset class="row">
