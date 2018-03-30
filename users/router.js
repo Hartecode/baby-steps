@@ -364,7 +364,7 @@ router.get('/baby',  (req, res) => {
     .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
-//get baby by userid
+//get babys by userid
 router.get('/baby/:id', jwtAuth, (req, res) => {
   const user = req.params.id;
   Baby
@@ -372,6 +372,15 @@ router.get('/baby/:id', jwtAuth, (req, res) => {
       userID: user
     })
     .then(babys => res.json(babys.map(baby => baby.serialize())))
+    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+});
+
+//get the individal baby by id
+router.get('/baby/single/:id', jwtAuth, (req, res) => {
+  const id = req.params.id;
+  Baby
+    .findById(req.params.id)
+    .then(baby => res.json(baby.serialize()))
     .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
