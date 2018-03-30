@@ -289,36 +289,37 @@ router.post('/milestone/:id', jwtAuth, (req, res) => {
 
 });
 
-//update the user***not working
-// router.put('/:id', (req, res) => {
-  // ensure that the id in the request path and the one in request body match
-  // if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-  //   const message = (
-  //     `Request path id (${req.params.id}) and request body id ` +
-  //     `(${req.body.id}) must match`);
-  //   console.error(message);
-  //   return res.status(400).json({ message: message });
-  // }
 
-  // const toUpdate = {};
-  // const requiredFields = ['username', 'password','firstName', 'lastName', 'email', 'id'];
+//update the selcted baby by its id
+router.put('/baby/:id', jwtAuth, (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body id ` +
+      `(${req.body.id}) must match`);
+    console.error(message);
+    return res.status(400).json({ message: message });
+  }
+
+  const toUpdate = {};
+  const requiredFields = ['id', 'baby'];
 
 
-  // requiredFields.forEach(field => {
-  //   if (field in req.body) {
-  //     toUpdate[field] = req.body[field];
-  //   }
-  // });
+  requiredFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
 
-  // User
-  //   // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-  //   .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-  //   .then(() => {
-  //     console.log(`Updating user \`${req.params.id}\``);
-  //     res.status(204).end();
-  //   })
-  //   .catch(err => res.status(500).json({ message: 'Internal server error' }));
-// });
+  Baby
+    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .then(() => {
+      console.log(`Updating user \`${req.params.id}\``);
+      res.status(204).end();
+    })
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
+
 
 //update the selected milestone post
 router.put('/milestone/:id', jwtAuth, (req, res) =>{
