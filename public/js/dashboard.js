@@ -95,12 +95,6 @@ function clearInputs() {
 
 //this function gets all the babies frothe server
 function getAllBabyInputs() {
-	// $.getJSON(`/api/users/baby/${userId}`, function(json) {
-	// 	listOfBabies = json.map(obj =>{
-	// 		return babySnapShotHTML(obj);
-	// 	});
-	// 	$('.listofbabys').html(listOfBabies);
-	// });
 	$.ajax({
 		type:'GET',
         url: `/api/users/baby/${userId}`,

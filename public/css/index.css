@@ -212,6 +212,21 @@ textarea {
     height: 0;
 }
 
+.baby-info {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.babyicon {
+    width: 50px;
+    display: inline;
+}
+
+.bfirstname {
+    display: inline;
+    font-size: 60px;
+}
+
 
 /*buttons*/
 .btn {

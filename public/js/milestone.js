@@ -6,6 +6,31 @@ let listOfMilestones;
 
 console.log(babyId);
 
+///get the individual baby info
+function getBabyInputs() {
+
+	$.ajax({
+		type:'GET',
+        url: `/api/users/baby/single/${babyId}`,
+        beforeSend : function(xhr) {
+		      // set header if JWT is set
+		      if (window.sessionStorage.accessToken) {
+		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+		      }
+		 },
+		error: error => {
+			if(error.responseText === 'Unauthorized') {
+				window.location = 'index.html';
+			}
+			console.log(error);
+		},
+		success: function(json) {
+		$('.bfirstname').text(json.baby.name.firstName);
+		$('.baby-edit').html(babyHTML(json));		
+		}
+	});
+}
+
 ///this functon post new milestones to sever
 function postMilestone(){
 	$('.mileinput').on('submit', function(event) {
@@ -66,9 +91,128 @@ function getAllMilestones() {
 				listOfMilestones = json.map(obj => {
 					return milestoneHTML(obj);
 				});
-				$('.milestonelist').html(listOfMilestones);	
+				$('.milestonelist').html(listOfMilestones);
 		}
 	});
+}
+
+//this holds the html for the baby form
+function babyHTML(obj) {
+	const babyFirstName = obj.baby.name.firstName;
+	const babyMiddleName = obj.baby.name.middleName;
+	const babyLastName = obj.baby.name.lastName;
+	const dateOfBirth = obj.baby.dateOfBirth;
+	const babyGender = obj.baby.sex;
+	const birthCity= obj.baby.birthCity;
+	const birthWeight = obj.baby.birthWeight;
+	const birthLength = obj.baby.birthLength;
+	const motherFirstName = obj.baby.parents.mother.motherFirstName;
+	const motherMiddleName = obj.baby.parents.mother.motherMiddleName;
+	const motherLastName = obj.baby.parents.mother.motherLastName;
+	const fatherFirstName = obj.baby.parents.father.fatherFirstName;
+	const fatherMiddleName = obj.baby.parents.father.fatherMiddleName;
+	const fatherLastName = obj.baby.parents.father.fatherLastName;
+	return `<form class="babyfileinput modal-content">
+						<div><i class="fas fa-times fa-3x closebtn"></i></div>
+						<fieldset class="row">
+							<h3>Baby</h3>
+							<div class="row">
+								<div class="col-3">
+									<label for="firstName">First Name:</label>
+									<br>
+									<input class="babyfirstname" type="text" name="firstName" value="${babyFirstName}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="middleName">Middle Name:</label>
+									<br>
+									<input class="babymiddlename" type="text" name="middleName" value="${babyMiddleName}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="lastName">Last Name:</label>
+									<br>
+									<input class="babylastname" type="text" name="lastName" value="${babyLastName}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="sex"> Sex:</label>
+									<br>
+									<select class="babygender" name="sex" disabled>
+									    <option value="male">Male</option>
+									    <option value="female">Female</option>
+	  								</select>
+								</div>
+							</div>
+
+							<div class="row">
+								
+								<div class="col-3">
+									<label for="dateOfBirth">Date of Birth:</label>
+									<br>
+									<input class="dateofbirth" type="date" name="dateOfBirth" value="${dateOfBirth}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="birthLength">birth length:</label>
+									<br>
+									<input class="birthlength" type="text" name="birthLength" value="${birthLength}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="birthCity">Birth city:</label>
+									<br>
+									<input class="birthCity" type="text" name="birthCity" value="${birthCity}" disabled>
+								</div>
+								<div class="col-3">
+									<label for="birthWeight">birth weight:</label>
+									<br>
+									<input class="birthweight" type="text" name="birthWeight" value="${birthWeight}" disabled>
+								</div>
+							</div>
+
+							<h3>Parents</h3>
+							
+							<div class="row">
+								<h4>Mother</h4>
+								<div class="col-4">
+									<label type="motherFirstName">First Name:</label>
+									<br>
+									<input class="motherfirstname" type="text" name="motherFirstName" value="${motherFirstName}" disabled>
+								</div>
+								<div class="col-4">
+									<label for="motherMiddleName">Middle Name:</label>
+									<br>
+									<input class="mothermiddlename" type="text" name="motherMiddleName" value="${motherMiddleName}" disabled>
+								</div>
+								<div class="col-4">
+									<label for="motherLastName">Last Name:</label>
+									<br>
+									<input class="motherlastname" type="text" name="motherLastName" value="${motherLastName}" disabled>
+								</div>
+							</div>
+							
+							
+							<div class="row">
+								<h4>Father</h4>
+								<div class="col-4">
+									<label type="fatherFirstName">First Name:</label>
+									<br>
+									<input class="fatherfirstname" type="text" name="fatherFirstName" value="${fatherFirstName}" disabled>
+								</div>
+								<div class="col-4">
+									<label for="fatherMiddleName">Middle Name:</label>
+									<br>
+									<input class="fathermiddlename" type="text" name="fatherMiddleName" value="${fatherMiddleName}" disabled>
+								</div>
+								<div class="col-4">
+									<label for="fatherLastName">Last Name:</label>
+									<br>
+									<input class="fatherlastname" type="text" name="fatherLastName" value="${fatherLastName}" disabled>
+								</div>
+							</div>
+							<div class="">
+								<input class="btn nutrbtn" type="button" value="Edit">
+								<input class="btn posbtn" type="submit" value="Submit" disabled>
+							</div>
+							
+						</fieldset>
+				</form>`;
 }
 
 //tis functoon is the html for the milestones
@@ -183,6 +327,10 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	getAllMilestones();
 });
 
+///
+$('.babyview-edit').on('click',function() {
+	$('.baby-edit').fadeIn();
+})
 
 //this expands and retracts the milestone info
 $('.milestonelist').on('click', '.view-dec', function() {
@@ -193,12 +341,13 @@ $('.milestonelist').on('click', '.view-dec', function() {
 //if a x is clicked on a modal it will close and the modal will empty
 $('.modal').on('click', '.closebtn', function() {
 	$(this).closest('.modal').fadeOut();
-	$(this).closest('.modal').empty();
+	// $(this).closest('.modal').empty();
 });
 
 
 
 function runMilestone() {
+	getBabyInputs();
 	postMilestone();
 	getAllMilestones();
 }

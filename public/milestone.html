@@ -25,114 +25,21 @@
 	<main role="main" class="container">
 
 		<section class="baby-edit modal">
-				<form class="babyfileinput modal-content">
-						<div><i class="fas fa-times fa-3x"></i></div>
-						<fieldset class="row">
-							<h3>Baby</h3>
-							<div class="row">
-								<div class="col-3">
-									<label for="firstName">First Name:</label>
-									<br>
-									<input class="babyfirstname" type="text" name="firstName">
-								</div>
-								<div class="col-3">
-									<label for="middleName">Middle Name:</label>
-									<br>
-									<input class="babymiddlename" type="text" name="middleName">
-								</div>
-								<div class="col-3">
-									<label for="lastName">Last Name:</label>
-									<br>
-									<input class="babylastname" type="text" name="lastName">
-								</div>
-								<div class="col-3">
-									<label for="sex"> Sex:</label>
-									<br>
-									<select class="babygender"name="sex">
-									    <option value="male">Male</option>
-									    <option value="female">Female</option>
-	  								</select>
-								</div>
-							</div>
-
-							<div class="row">
-								
-								<div class="col-3">
-									<label for="dateOfBirth">Date of Birth:</label>
-									<br>
-									<input class="dateofbirth" type="date" name="dateOfBirth">
-								</div>
-								<div class="col-3">
-									<label for="birthLength">birth length:</label>
-									<br>
-									<input class="birthlength" type="text" name="birthLength">
-								</div>
-								<div class="col-3">
-									<label for="birthCity">Birth city:</label>
-									<br>
-									<input class="birthCity" type="text" name="birthCity">
-								</div>
-								<div class="col-3">
-									<label for="birthWeight">birth weight:</label>
-									<br>
-									<input class="birthweight" type="text" name="birthWeight">
-								</div>
-							</div>
-
-							<h3>Parents</h3>
-							
-							<div class="row">
-								<h4>Mother</h4>
-								<div class="col-4">
-									<label type="motherFirstName">First Name:</label>
-									<br>
-									<input class="motherfirstname" type="text" name="motherFirstName">
-								</div>
-								<div class="col-4">
-									<label for="motherMiddleName">Middle Name:</label>
-									<br>
-									<input class="mothermiddlename" type="text" name="motherMiddleName">
-								</div>
-								<div class="col-4">
-									<label for="motherLastName">Last Name:</label>
-									<br>
-									<input class="motherlastname" type="text" name="motherLastName">
-								</div>
-							</div>
-							
-							
-							<div class="row">
-								<h4>Father</h4>
-								<div class="col-4">
-									<label type="fatherFirstName">First Name:</label>
-									<br>
-									<input class="fatherfirstname" type="text" name="fatherFirstName">
-								</div>
-								<div class="col-4">
-									<label for="fatherMiddleName">Middle Name:</label>
-									<br>
-									<input class="fathermiddlename" type="text" name="fatherMiddleName">
-								</div>
-								<div class="col-4">
-									<label for="fatherLastName">Last Name:</label>
-									<br>
-									<input class="fatherlastname" type="text" name="fatherLastName">
-								</div>
-							</div>
-							<div class="">
-								<button class="btn posbtn" type="submit">Submit</button>
-							</div>
-							
-						</fieldset>
-					</form>
-				</div>	
-			</div>
+				
 		</section>
 
 		<section class="mile-edit modal">
 		</section>
 
-		<section>
+		<section role="region" class="baby-info">
+			<div>
+				<img class="babyicon" src="pic/babyicon.png">
+				<h1 class="bfirstname"></h1>	
+			</div>
+			<a class="babyview-edit" href="#">view/edit</a>
+		</section>
+
+		<section role="region">
 			<form class="mileinput">
 				<fieldset class="row">
 					<div class="col-3">
