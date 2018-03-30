@@ -3,6 +3,7 @@
 const babyId = localStorage.getItem('babyId');
 
 let listOfMilestones;
+let babyInfoJSON;
 
 console.log(babyId);
 
@@ -26,7 +27,8 @@ function getBabyInputs() {
 		},
 		success: function(json) {
 		$('.bfirstname').text(json.baby.name.firstName);
-		$('.baby-edit').html(babyHTML(json));		
+		babyInfoJSON = json;
+				
 		}
 	});
 }
@@ -120,22 +122,22 @@ function babyHTML(obj) {
 								<div class="col-3">
 									<label for="firstName">First Name:</label>
 									<br>
-									<input class="babyfirstname" type="text" name="firstName" value="${babyFirstName}" disabled>
+									<input class="babyfirstname disabledInp" type="text" name="firstName" value="${babyFirstName}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="middleName">Middle Name:</label>
 									<br>
-									<input class="babymiddlename" type="text" name="middleName" value="${babyMiddleName}" disabled>
+									<input class="babymiddlename disabledInp" type="text" name="middleName" value="${babyMiddleName}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="lastName">Last Name:</label>
 									<br>
-									<input class="babylastname" type="text" name="lastName" value="${babyLastName}" disabled>
+									<input class="babylastname disabledInp" type="text" name="lastName" value="${babyLastName}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="sex"> Sex:</label>
 									<br>
-									<select class="babygender" name="sex" disabled>
+									<select class="babygender disabledInp" name="sex" disabled>
 									    <option value="male">Male</option>
 									    <option value="female">Female</option>
 	  								</select>
@@ -147,22 +149,22 @@ function babyHTML(obj) {
 								<div class="col-3">
 									<label for="dateOfBirth">Date of Birth:</label>
 									<br>
-									<input class="dateofbirth" type="date" name="dateOfBirth" value="${dateOfBirth}" disabled>
+									<input class="dateofbirth disabledInp" type="date" name="dateOfBirth" value="${dateOfBirth}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="birthLength">birth length:</label>
 									<br>
-									<input class="birthlength" type="text" name="birthLength" value="${birthLength}" disabled>
+									<input class="birthlength disabledInp" type="text" name="birthLength" value="${birthLength}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="birthCity">Birth city:</label>
 									<br>
-									<input class="birthCity" type="text" name="birthCity" value="${birthCity}" disabled>
+									<input class="birthCity disabledInp" type="text" name="birthCity" value="${birthCity}" disabled>
 								</div>
 								<div class="col-3">
 									<label for="birthWeight">birth weight:</label>
 									<br>
-									<input class="birthweight" type="text" name="birthWeight" value="${birthWeight}" disabled>
+									<input class="birthweight disabledInp" type="text" name="birthWeight" value="${birthWeight}" disabled>
 								</div>
 							</div>
 
@@ -173,17 +175,17 @@ function babyHTML(obj) {
 								<div class="col-4">
 									<label type="motherFirstName">First Name:</label>
 									<br>
-									<input class="motherfirstname" type="text" name="motherFirstName" value="${motherFirstName}" disabled>
+									<input class="motherfirstname disabledInp" type="text" name="motherFirstName" value="${motherFirstName}" disabled>
 								</div>
 								<div class="col-4">
 									<label for="motherMiddleName">Middle Name:</label>
 									<br>
-									<input class="mothermiddlename" type="text" name="motherMiddleName" value="${motherMiddleName}" disabled>
+									<input class="mothermiddlename disabledInp" type="text" name="motherMiddleName" value="${motherMiddleName}" disabled>
 								</div>
 								<div class="col-4">
 									<label for="motherLastName">Last Name:</label>
 									<br>
-									<input class="motherlastname" type="text" name="motherLastName" value="${motherLastName}" disabled>
+									<input class="motherlastname disabledInp" type="text" name="motherLastName" value="${motherLastName}" disabled>
 								</div>
 							</div>
 							
@@ -193,22 +195,22 @@ function babyHTML(obj) {
 								<div class="col-4">
 									<label type="fatherFirstName">First Name:</label>
 									<br>
-									<input class="fatherfirstname" type="text" name="fatherFirstName" value="${fatherFirstName}" disabled>
+									<input class="fatherfirstname disabledInp" type="text" name="fatherFirstName" value="${fatherFirstName}" disabled>
 								</div>
 								<div class="col-4">
 									<label for="fatherMiddleName">Middle Name:</label>
 									<br>
-									<input class="fathermiddlename" type="text" name="fatherMiddleName" value="${fatherMiddleName}" disabled>
+									<input class="fathermiddlename disabledInp" type="text" name="fatherMiddleName" value="${fatherMiddleName}" disabled>
 								</div>
 								<div class="col-4">
 									<label for="fatherLastName">Last Name:</label>
 									<br>
-									<input class="fatherlastname" type="text" name="fatherLastName" value="${fatherLastName}" disabled>
+									<input class="fatherlastname disabledInp" type="text" name="fatherLastName" value="${fatherLastName}" disabled>
 								</div>
 							</div>
 							<div class="">
-								<input class="btn nutrbtn" type="button" value="Edit">
-								<input class="btn posbtn" type="submit" value="Submit" disabled>
+								<input id="editbaby" class="btn nutrbtn" type="button" value="Edit">
+								<input class="btn posbtn disabledInp" type="submit" value="Submit" disabled>
 							</div>
 							
 						</fieldset>
@@ -327,10 +329,18 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	getAllMilestones();
 });
 
-///
+///click listner for the view/edit for baby which fades in the edit modal
 $('.babyview-edit').on('click',function() {
+	$('.baby-edit').html(babyHTML(babyInfoJSON));
 	$('.baby-edit').fadeIn();
 })
+
+//click listenr for edit button for baby which allows the form to able to eidt
+$('.baby-edit').on('click','#editbaby', function(event){
+	event.preventDefault();
+	console.log('edit clicked');
+   $('.disabledInp').prop("disabled", false);
+});
 
 //this expands and retracts the milestone info
 $('.milestonelist').on('click', '.view-dec', function() {
@@ -341,7 +351,7 @@ $('.milestonelist').on('click', '.view-dec', function() {
 //if a x is clicked on a modal it will close and the modal will empty
 $('.modal').on('click', '.closebtn', function() {
 	$(this).closest('.modal').fadeOut();
-	// $(this).closest('.modal').empty();
+	$(this).closest('.modal').empty();
 });
 
 
