@@ -297,6 +297,69 @@ function milestoneEditHtml(id, date, title, desc){
 			</form>	`;
 }
 
+//this funtion submits and edit the baby's info
+$('.baby-edit').on('submit', function(e) {
+	e.preventDefault();
+	const babyFirstName = $(this).closest('.baby-edit').find('.babyfirstname').val();
+	const babyMiddleName = $(this).closest('.baby-edit').find('.babymiddlename').val();
+	const babyLastName = $(this).closest('.baby-edit').find('.babylastname').val();
+	const dateOfBirth = $(this).closest('.baby-edit').find('.dateofbirth').val();
+	const babyGender = $(this).closest('.baby-edit').find('.babygender').val();
+	const birthCity= $(this).closest('.baby-edit').find('.birthCity').val();
+	const birthWeight = $(this).closest('.baby-edit').find('.birthweight').val();
+	const birthLength = $(this).closest('.baby-edit').find('.birthlength').val();
+	const motherFirstName = $(this).closest('.baby-edit').find('.motherfirstname').val();
+	const motherMiddleName = $(this).closest('.baby-edit').find('.mothermiddlename').val();
+	const motherLastName = $(this).closest('.baby-edit').find('.motherlastname').val();
+	const fatherFirstName = $(this).closest('.baby-edit').find('.fatherfirstname').val();
+	const fatherMiddleName = $(this).closest('.baby-edit').find('.fathermiddlename').val();
+	const fatherLastName = $(this).closest('.baby-edit').find('.fatherlastname').val();
+	$.ajax({
+		type: "PUT",
+		url: `api/users/baby/${babyId}`,
+		beforeSend : function(xhr) {
+		      // set header if JWT is set
+		      if (window.sessionStorage.accessToken) {
+		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+		      }
+		 }, 
+		data: JSON.stringify({
+			'id': babyId,
+			'baby': {
+	          'name': {
+	            'firstName': babyFirstName,
+	            'middleName': babyMiddleName,
+	            'lastName': babyLastName
+	          },
+	          'dateOfBirth': dateOfBirth,
+	          'sex': babyGender,
+	          'parents': {
+	            'mother': {
+	              'motherFirstName': motherFirstName,
+	              'motherMiddleName': motherMiddleName,
+	              'motherLastName': motherLastName
+	            },
+	            'father': {
+	              'fatherFirstName': fatherFirstName,
+	              'fatherMiddleName': fatherMiddleName,
+	              'fatherLastName':fatherLastName
+	            }
+	          },
+	          'birthCity': birthCity,
+	          'birthWeight': birthWeight,
+	          'birthLength': birthLength
+	        }
+	    }),
+	    dataType: 'json',
+	    contentType: "application/json",
+	    error: error => console.log(error)
+	})
+	.done(function(){
+		getBabyInputs();
+	});
+	outEmptyModal($(this));
+});
+
 //this function submits and edit to the milestone post
 $('.mile-edit').on('click', '.posbtn', function(e){
 	e.preventDefault();
@@ -304,7 +367,6 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	let date = $(this).closest('.mile-edit').find('.miledate-edit').val();
 	let title = $(this).closest('.mile-edit').find('.miletitle-edit').val();
 	let desc = $(this).closest('.mile-edit').find('.miledescription-edit').val();
-	console.log(desc);
 	$.ajax({
 		type: "PUT",
 		url: `api/users/milestone/${editItemId}`,
@@ -324,8 +386,7 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	    contentType: "application/json",
 	    error: error => console.log(error)
 	});
-	$(this).closest('.modal').fadeOut();
-	$(this).closest('.modal').empty();
+	outEmptyModal($(this));
 	getAllMilestones();
 });
 
@@ -350,9 +411,13 @@ $('.milestonelist').on('click', '.view-dec', function() {
 
 //if a x is clicked on a modal it will close and the modal will empty
 $('.modal').on('click', '.closebtn', function() {
-	$(this).closest('.modal').fadeOut();
-	$(this).closest('.modal').empty();
+	outEmptyModal($(this));
 });
+
+function outEmptyModal(element) {
+	element.closest('.modal').fadeOut();
+	element.closest('.modal').empty();
+}
 
 
 
