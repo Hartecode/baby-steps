@@ -20,6 +20,7 @@ describe('Protected endpoint', function() {
   const password = 'examplePass';
   const firstName = 'Example';
   const lastName = 'User';
+  const email = 'example@example.com';
 
   before(function() {
     return runServer();
@@ -35,7 +36,8 @@ describe('Protected endpoint', function() {
         username,
         password,
         firstName,
-        lastName
+        lastName,
+        email
       })
     );
   });
