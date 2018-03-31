@@ -121,17 +121,32 @@ function getAllBabyInputs() {
 		  return $(this).attr('id');
 		});
 		for(let i = 0; i < ids.length; i++) {
-			$.getJSON(`/api/users/milestone/${ids[i]}`, function(data) {
-				console.log(data);
-				if(data.length === 0 ){
-					$(`#${ids[i]} .stonetitle`).text('Currently no milestones posted.');
-				} else {
-					let mileDate = data[0].date;
-					let mileTitle = data[0].title;
-					$(`#${ids[i]} .stonedate`).text(mileDate);
-					$(`#${ids[i]} .stonetitle`).text(mileTitle);
-				}
-				
+			$.ajax({
+				type:'GET',
+		        url: `/api/users/milestone/${ids[i]}`,
+		        beforeSend : function(xhr) {
+				      // set header if JWT is set
+				      if (window.sessionStorage.accessToken) {
+				          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+				      }
+				 },
+				error: error => {
+					if(error.responseText === 'Unauthorized') {
+						window.location = 'index.html';
+					}
+					console.log(error);
+				},
+				success: function(json) {
+					console.log(json);
+					if(json.length === 0 ){
+						$(`#${ids[i]} .stonetitle`).text('Currently no milestones posted.');
+					} else {
+						let mileDate = json[0].date;
+						let mileTitle = json[0].title;
+						$(`#${ids[i]} .stonedate`).text(mileDate);
+						$(`#${ids[i]} .stonetitle`).text(mileTitle);
+					}		
+				}		
 			});
 		}		
 	});
