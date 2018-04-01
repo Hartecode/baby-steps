@@ -75,18 +75,7 @@ textarea {
     text-align: center;
 }
 
-.navbar {
-	height: 100%;
-    float: right;
-}
 
-.navbutton {
-	font-size: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-    cursor: pointer;
-    display: inline-block;
-}
 
 .loginButton {
 	width: 200px;
@@ -167,7 +156,7 @@ textarea {
 }
 
 .stonecontainer::before {
-    font-family: FontAwesome;
+    font-family: 'Font Awesome 5 Free';
     content: "\f005";
     float: left;
     margin-right: 10px;
@@ -271,4 +260,62 @@ textarea {
     margin-top: 30px;
     width: 100%;
     
+}
+
+/*this is for the responsive nav bar*/
+.navbutton {
+    font-size: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .navbar {
+        position: fixed;
+        text-align: right;
+        background-color: black;
+        color: white;
+        width: 0;
+        height: 100%;
+        overflow-x: hidden;
+        right: 0;
+        top: 0;
+        transition: all .5s;
+        -webkit-transition: all .5s; /* Safari */
+
+    }
+
+    .navbar > div {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #opennav {
+        float: right;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    #closenav {
+        cursor: pointer;
+        text-align: left;
+        margin-top: 5px;
+        margin-left: 10px;
+        font-size: 35px
+    }
+}
+@media screen and (min-width: 900px){
+    #closenav, #opennav {
+        display: none;
+    }
+
+    .navbar {
+        height: 100%;
+        float: right;
+    }
+
+    .navbutton {
+        display: inline-block;
+    }
 }
