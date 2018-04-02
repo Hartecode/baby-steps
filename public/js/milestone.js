@@ -5,13 +5,17 @@ const babyId = localStorage.getItem('babyId');
 let listOfMilestones;
 let babyInfoJSON;
  
-$('#opennav').on('click', function(){
-	$('.navbar').css('width', '200px');
-});
 
-$('#closenav').on('click', function(){
-	$('.navbar').css('width', '0px');
-});
+function resNavBar() {
+	$('#opennav').on('click', function(){
+		$('.navbar').css('width', '200px');
+	});
+
+	$('#closenav').on('click', function(){
+		$('.navbar').css('width', '0px');
+	});
+}
+
 
 ///get the individual baby info
 function getBabyInputs() {
@@ -428,6 +432,7 @@ function outEmptyModal(element) {
 
 
 function runMilestone() {
+	resNavBar()
 	getBabyInputs();
 	postMilestone();
 	getAllMilestones();

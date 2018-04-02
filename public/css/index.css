@@ -11,6 +11,8 @@ header {
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
+    background-color: #080C5D;
+    border-bottom: 2px solid #3D9A00;
 }
 
 fieldset, button {
@@ -59,13 +61,14 @@ textarea {
 }
 
 .dashboard-body {
-	background-color: #c4d8ff;
+    background-color: #080C5D;
+	color: #3D9A00;
 }
 
 .container {
 	max-width: 800px;
     margin: auto;
-    margin-top: 100px;
+    padding-top: 50px;
 }
 
 .login-register {
@@ -104,6 +107,51 @@ textarea {
     background-color: #41285063;
 }
 
+.addbaby {
+    border: 2px solid;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 19px;
+    padding-top: 31px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: -2px -1px 0px 0px;
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari */
+}
+
+.addboxdashboard{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.selectbaby {
+    box-sizing: border-box;
+    border: 2px solid;
+    border-radius: 20px;
+    height: 50px;
+    width: 200px;
+    margin: auto;
+    margin-top: 12px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: -2px -1px 0px 0px;
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari */
+}
+
+.addbaby:hover, .selectbaby:hover, .snapBaby:hover {
+    background-color: #FFAF56;
+}
+
+.snapBaby:active, .addbaby:active, .selectbaby:active {
+    box-shadow: inset -2px -1px 0px 0px;
+}
+
 .input-sizing {
 	width: 80%;
     height: 22px;
@@ -117,14 +165,26 @@ textarea {
 }
 
 .snapBaby {
-	min-height: 100px;
+    box-sizing: border-box;
+	min-height: 170px;
     margin-bottom: 10px;
+    text-align: center;
     cursor: pointer;
+    box-shadow: -2px -1px 0px 0px;
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari */
 }
 
 .snapName {
-	width: 100px;
-    float: left;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.snapAt {
+    width: 50px;
+    margin: auto;
+    border: 1px solid;
+    border-radius: 50%;
 }
 
 .snapAge {
@@ -132,8 +192,12 @@ textarea {
     float: left;
 }
 
+.currentage {
+    font-size: 30px;
+}
+
 .snapMilestone {
-	display: inline-block;
+    margin-top: 10px;
 }
 
 .stonedate {
@@ -194,6 +258,8 @@ textarea {
 
 .milehidden {
     margin-left: 20px;
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari */
 }
 
 .hidden {
@@ -242,6 +308,10 @@ textarea {
   font-size: 16px;
 }
 
+.closebtn {
+    cursor: pointer;
+}
+
 .modal{
     display: none;
     box-sizing: border-box;
@@ -259,7 +329,8 @@ textarea {
     padding: 10px;
     margin-top: 30px;
     width: 100%;
-    
+    overflow-y: scroll;
+    max-height: 90vh;
 }
 
 /*this is for the responsive nav bar*/
@@ -313,6 +384,7 @@ textarea {
     .navbar {
         height: 100%;
         float: right;
+        width: 390px;
     }
 
     .navbutton {
