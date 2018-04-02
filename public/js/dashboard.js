@@ -3,13 +3,6 @@
 // const token = localStorage.getItem('token');
 const userId = localStorage.getItem('userId');
 
-$('#opennav').on('click', function(){
-	$('.navbar').css('width', '200px');
-});
-
-$('#closenav').on('click', function(){
-	$('.navbar').css('width', '0px');
-});
 
 
 //this function submits a new post of a baby under the current user id

@@ -144,9 +144,15 @@ textarea {
     -webkit-transition: all .5s; /* Safari */
 }
 
-.addbaby:hover, .selectbaby:hover, .snapBaby:hover {
-    background-color: #FFAF56;
+.addbaby:hover, .selectbaby:hover, .snapBaby:hover {     
+    background-color: #FFAF56; 
 }
+
+#opennav:hover, #about:hover, #signout:hover {
+    color: #FFAF56; 
+}
+
+
 
 .snapBaby:active, .addbaby:active, .selectbaby:active {
     box-shadow: inset -2px -1px 0px 0px;
@@ -334,6 +340,8 @@ textarea {
 }
 
 /*this is for the responsive nav bar*/
+
+
 .navbutton {
     font-size: 30px;
     padding-left: 5px;
@@ -355,6 +363,10 @@ textarea {
         transition: all .5s;
         -webkit-transition: all .5s; /* Safari */
 
+    }
+
+    .navwidth {
+        width: 200px;
     }
 
     .navbar > div {
@@ -384,7 +396,6 @@ textarea {
     .navbar {
         height: 100%;
         float: right;
-        width: 390px;
     }
 
     .navbutton {
