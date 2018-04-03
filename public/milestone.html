@@ -19,11 +19,18 @@
 		<div class="navbar">
 			<div id="closenav"><i class="fas fa-times"></i></div>
 			<div id="about" class="navbutton">About</div>
-			<div id="userinfo" class="navbutton">User Info</div>
 			<div id="signout" class="navbutton">Sign Out</div>
 		</div>	
 	</header>
 	<main role="main" class="container">
+
+		<section class="about modal">
+			<div class="modal-content">
+				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
+				<h1>About</h1>
+				<p>Correlation a, transparent outcomes impact investing; or efficient. Unprecedented challenge deep dive entrepreneur catalyze blended value relief. State of play benefit corporation save the world systems thinking collaborative cities society empower communities global inspirational. Agile rubric natural resources save the world academic problem-solvers. Human-centered commitment; shared value, human-centered philanthropy dynamic. Catalyze overcome injustice impact sustainable agile; support philanthropy thought provoking policymaker. Empower communities, mobilize shared value catalyze, effective youth paradigm do-gooder collective impact. LGBTQ+, scale and impact triple bottom line policymaker policymaker. Thought partnership effective entrepreneur effective altruism efficient thought partnership greenwashing accessibility thought provoking. Co-create improve the world; dynamic, inspiring; improve the world thought provoking blended value. Inspirational; the resistance invest or, replicable problem-solvers leverage. Benefit corporation; storytelling, preliminary thinking, venture philanthropy youth relief co-create boots on the ground inspirational. Issue outcomes expose the truth inspiring uplift corporate social responsibility state of play collaborate. Greenwashing dynamic, equal opportunity; NGO;.</p>
+			</div>
+		</section>
 
 		<section class="baby-edit modal">
 				
@@ -40,23 +47,24 @@
 			<a class="babyview-edit" href="#">view/edit</a>
 		</section>
 
-		<section role="region">
-			<form class="mileinput">
+		<section role="region" class="mile-add modal">
+			<form class="mileinput modal-content">
+				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
 				<fieldset class="row">
 					<div class="col-3">
 						<label for="date">Date:</label>
 						<br>
-						<input class="miledate" type="date" name="date">
+						<input class="miledate" type="date" name="date" required>
 						<br>
 						<label for="milestones">Milestone:</label>
 						<br>
-						<input class="miletitle" type="text" name="milestones">
+						<input class="miletitle" type="text" name="milestones" required>
 					</div>
 					
 					<div class="col-6">
 						<label for="description">Description:</label>
 						<br>
-						<textarea class="miledescription" rows="5" name="description"></textarea>
+						<textarea class="miledescription" rows="5" name="description" required></textarea>
 					</div>
 					<div class="col-3">
 						<button class="btn posbtn" type="submit">Submit</button>
@@ -64,15 +72,19 @@
 					
 				</fieldset>
 			</form>	
-			<hr>
 		</section>
-		<section role="region" class="milestonelist">
-			<h3>No Milestones on file</h3>
+		<section role="region">
+			<div class="addmilestonebtn"><i class="fas fa-star"></i>Add Milestne</div>
+			<hr>
+			<div class="milestonelist">
+				<h3>No Milestones on file</h3>
+			</div>
 		</section>
 	</main>
 
 	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/milestone.js"></script>
+	<script type="text/javascript" src="js/page.js"></script>
 
 </body>
 </html>

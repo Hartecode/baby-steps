@@ -407,10 +407,14 @@ $('.milestonelist').on('click', '.view-dec', function() {
 	$(this).closest('.fullstone').find('.milehidden').toggleClass('hidden');
 });
 
+//this is the click listenr for the add milestone button
+$('.addmilestonebtn').on('click', function(){
+	$('.mile-add').fadeIn();
+});
 
 //if a x is clicked on a modal it will close and the modal will empty
 $('.modal').on('click', '.closebtn', function() {
-	outEmptyModal($(this));
+	$(this).closest('.modal').fadeOut();
 });
 
 function outEmptyModal(element) {

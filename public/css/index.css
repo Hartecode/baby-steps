@@ -11,8 +11,13 @@ header {
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: #080C5D;
     border-bottom: 2px solid #3D9A00;
+    color: #3D9A00;
+}
+
+.dashboard-body header {
+    background-color: white;
+    position: fixed;
 }
 
 fieldset, button {
@@ -69,12 +74,15 @@ textarea {
 	max-width: 800px;
     margin: auto;
     padding-top: 50px;
+    background-color: #FFAF56;
+    min-height: 100vh;
+    box-shadow: 0px 0px 10px 3px #080C5D;
 }
 
 .login-register {
 	margin: auto;
     width: 300px;
-    margin-top: 200px;
+    margin-top: 110px;
     text-align: center;
 }
 
@@ -89,7 +97,7 @@ textarea {
     box-sizing: border-box;
     padding: 3px;
     cursor: pointer;	
-    background-color: #3c1b37bd;
+    background-color: #080c5d80;
 }
 
 .toggleReg {
@@ -100,11 +108,11 @@ textarea {
 }
 
 .box-structure {
-	border: 2px solid;
+	border: 2px solid #3D9A00;
     border-radius: 15px;
     padding: 5px;
     box-sizing: border-box;
-    background-color: #41285063;
+    background-color: #dec28163;
 }
 
 .addbaby {
@@ -245,12 +253,14 @@ textarea {
 }
 
 .milestonedate {
-   float: left;
+    float: left;
     margin-left: 2px;
+    font-weight: 900;
 }
 
 .milestonetitle {
-   float: left;
+    float: left;
+    font-weight: 900;
     margin-left: 10px;
 }
 
@@ -264,13 +274,18 @@ textarea {
 
 .milehidden {
     margin-left: 20px;
-    transition: all .5s;
-    -webkit-transition: all .5s; /* Safari */
+    color: #080C5D;
+    background-color: white;
+    box-shadow: 0px 0px 2px 1px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .hidden {
     overflow: hidden;
     height: 0;
+    padding: 0;
+    box-shadow: none;
 }
 
 .baby-info {
@@ -287,7 +302,6 @@ textarea {
     display: inline;
     font-size: 60px;
 }
-
 
 /*buttons*/
 .btn {
@@ -318,6 +332,25 @@ textarea {
     cursor: pointer;
 }
 
+.addmilestonebtn {
+    text-align: center;
+    font-size: 30px;
+    border: 2px solid #3D9A00;
+    border-radius: 20px;
+    height: 57px;
+    width: 300px;
+    margin: auto;
+    padding: 7px;
+    cursor: pointer;
+    box-shadow: -1px -1px 1px 0px #080C5D;
+}
+
+.addmilestonebtn:active {
+
+    box-shadow: inset -1px -1px 1px 0px #080C5D;
+}
+
+/*modal css*/
 .modal{
     display: none;
     box-sizing: border-box;
