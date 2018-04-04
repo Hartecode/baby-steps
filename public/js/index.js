@@ -20,16 +20,16 @@ function signUp() {
 
 //this returns the html code for login form
 function logInTemplate() {
-    return `<form action:'/api/auth/login' method='POST'>
+    return `<form autocomplete="on">
                 <fieldset>
                     <legend class="login-register-title"> LOGIN</legend>
                     <label for="username">User Name:</label>
                     <br>
-                    <input class="input-sizing username-login" type="text" name="username">
+                    <input class="input-sizing username-login" type="text" name="username" required>
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing password-login" type="test" name="password">
+                    <input class="input-sizing password-login" type="test" name="password" required>
                     <br>
                     <button class="loginButton signingInAcc" type="submit">Submit</button>
                 </fieldset>
@@ -39,28 +39,28 @@ function logInTemplate() {
 
 //this function displays the signup HTML 
 function signUpTemplate() {
-    return `<form action:'/api/users' method='POST'>
+    return `<form autocomplete="on">
                 <fieldset>
                     <legend class="login-register-title"> Sign Up</legend>
                     <label for="username">User Name:</label>
                     <br>
-                    <input class="input-sizing username-signup" type="text" name="username">
+                    <input class="input-sizing username-signup" type="text" name="username" pattern=".{1,}"   required title="1 characters minimum" required>
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing password-signup" type="test" name="password">
+                    <input class="input-sizing password-signup" type="test" name="password" pattern=".{10, 72}"   required title="3 characters minimum" required>
                     <br>
                     <label for="firstName">First Name:</label>
                     <br>
-                    <input class="input-sizing firstname-signup" type="test" name="firstName">
+                    <input class="input-sizing firstname-signup" type="test" name="firstName" required>
                     <br>
                     <label for="lastName">Last Name:</label>
                     <br>
-                    <input class="input-sizing lastname-signup" type="test" name="lastName">
+                    <input class="input-sizing lastname-signup" type="test" name="lastName" required>
                     <br>
                     <label for="email">email:</label>
                     <br>
-                    <input class="input-sizing email-signup" type="email" name="email">
+                    <input class="input-sizing email-signup" type="email" name="email" required>
                     <br>
                     <button class="loginButton signingUpNewAcc" type="submit">Submit</button>
                 </fieldset>

@@ -60,6 +60,7 @@ function postMilestone(){
         });
         clearInputs();
         getAllMilestones();
+        $('.modal').fadeOut();
 	});
 }
 

@@ -3,6 +3,28 @@
 // const token = localStorage.getItem('token');
 const userId = localStorage.getItem('userId');
 
+function getUserInfo() {
+	$.ajax({
+		type:'GET',
+        url: `/api/users/${userId}`,
+        beforeSend : function(xhr) {
+		      // set header if JWT is set
+		      if (window.sessionStorage.accessToken) {
+		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
+		      }
+		 },
+		error: error => {
+			if(error.responseText === 'Unauthorized') {
+				window.location = 'index.html';
+			}
+			console.log(error);
+		},
+		success: function(json) {
+			let firstName = json.firstName
+			$('.usergreeting').text(firstName)		
+		}
+	})
+}
 
 
 //this function submits a new post of a baby under the current user id
@@ -70,6 +92,7 @@ function submitBabyInfo(){
 		});
 		getAllBabyInputs();
 		clearInputs();
+		$('.modal').fadeOut();
 	})
 }
 
@@ -138,7 +161,9 @@ function getAllBabyInputs() {
 		let ids = $('.snapBaby').map(function() {
 		  return $(this).attr('id');
 		});
+		
 		for(let i = 0; i < ids.length; i++) {
+			console.log(ids[i]);
 			$.ajax({
 				type:'GET',
 		        url: `/api/users/milestone/${ids[i]}`,
@@ -155,14 +180,10 @@ function getAllBabyInputs() {
 					console.log(error);
 				},
 				success: function(json) {
-					console.log(json);
 					if(json.length === 0 ){
-						$(`#${ids[i]} .stonetitle`).text('Currently no milestones posted.');
+						$(`#${ids[i]} .stonetitle`).text('Currently no milestones posted.');	
 					} else {
-						let monthsOld = monthDiff(json[0].date);
-						console.log(monthsOld);
 						let mileTitle = json[0].title;
-						$(`.listofbabys #${ids[i]} .currentage`).text(monthsOld);
 						$(`.listofbabys #${ids[i]} .stonetitle`).text(mileTitle);
 					}		
 				}		
@@ -189,7 +210,7 @@ function babySnapShotHTML(babyObj) {
 					<div class="snapAt"><h3>At</h3></div>
 					<div class="snapAge">
 						<h4>Currnet Age:</h4>
-						<div class="currentage"></div>
+						<div class="currentage">${monthDiff(age)}</div>
 						<p>Months old</p>
 					</div>
 					<div class="snapMilestone">
@@ -235,6 +256,7 @@ $('.closebtn').on('click', function(){
 });
 
 function runDashBoard() {
+	getUserInfo();
 	submitBabyInfo();
 	getAllBabyInputs();
 }

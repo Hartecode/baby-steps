@@ -19,7 +19,7 @@
 		<div class="navbar">
 			<div id="closenav"><i class="fas fa-times"></i></div>
 			<div id="about" class="navbutton">About</div>
-			<div id="signout" class="navbutton">Sign Out</div>
+			<div id="signout" class="navbutton"><i class="fas fa-user-circle"></i></div>
 		</div>	
 	</header>
 	<main role="main" class="container">
@@ -32,12 +32,19 @@
 			</div>
 		</section>
 
-		<section class="baby-edit modal">
-				
+		<section role="region" class="signout modal">
+			<div class="modal-content">
+				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
+				<h3>Hey <span class="usergreeting"></span>,
+				Do you want to sign out?</h3>
+				<button class="btn nutrbtn signOutNo">No</button>
+				<button class="btn negbtn signOutYes">Yes, Sign me out</button>
+			</div>
 		</section>
 
-		<section class="mile-edit modal">
-		</section>
+		<section role="region" class="baby-edit modal"></section>
+
+		<section role="region" class="mile-edit modal"></section>
 
 		<section role="region" class="baby-info">
 			<div>

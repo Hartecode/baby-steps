@@ -43,6 +43,13 @@ textarea {
   width: 100%;
 }
 
+hr {
+    border: 0;
+    color: #3D9A00;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
 .logo {
 	margin: 0;
 	float: left;
@@ -66,7 +73,6 @@ textarea {
 }
 
 .dashboard-body {
-    background-color: #080C5D;
 	color: #3D9A00;
 }
 
