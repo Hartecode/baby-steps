@@ -425,21 +425,22 @@ router.delete('/baby/:id', (req, res) => {
 
   const babysId = req.params.id;
 
-  Baby
-    .findByIdAndRemove(babysId)
+  
+  Milestone
+    .remove({ 
+        babyID: babysId
+    })
     .then(() => {
-      console.log(`You have deleted user baby id:${babysId}`);
-      res.status(204).end();
+      console.log(`You have deleted all milestones related to babyID: ${babysId}`);
+      Baby
+      .findByIdAndRemove(babysId)
+      .then(() => {
+        console.log(`You have deleted user baby id:${babysId}`);
+        res.status(204).end();
+      })
+      .catch(err => res.status(500).json({ message: `Internal server error: ${err}` }));
     })
     .catch(err => res.status(500).json({ message: `Internal server error: ${err}` }));
-
-    // .then(() => {
-    //   Milestone
-    //   .findAllAndRemove({ 
-    //     babyID: babysId
-    //   });
-    // })
-  
 });
 
 //delete the miles's baby from the database by using the id of the milestone
