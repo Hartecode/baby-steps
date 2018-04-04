@@ -210,6 +210,7 @@ function babyHTML(obj) {
 							</div>
 							<div class="">
 								<input id="editbaby" class="btn nutrbtn" type="button" value="Edit">
+								<input id="deletebaby" class="btn negbtn disabledInp" type="button" value="Delete Baby Info & Milestones" disabled>
 								<input class="btn posbtn disabledInp" type="submit" value="Submit" disabled>
 							</div>
 							
