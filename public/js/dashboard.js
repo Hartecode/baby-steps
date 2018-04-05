@@ -35,16 +35,10 @@ function submitBabyInfo(){
 		const babyMiddleName = $('.babymiddlename').val();
 		const babyLastName = $('.babylastname').val();
 		const dateOfBirth = $('.dateofbirth').val();
-		const babyGender = $('.babygender').val();
 		const birthCity= $('.birthCity').val();
 		const birthWeight = $('.birthweight').val();
 		const birthLength = $('.birthlength').val();
-		const motherFirstName = $('.motherfirstname').val();
-		const motherMiddleName = $('.mothermiddlename').val();
-		const motherLastName = $('.motherlastname').val();
-		const fatherFirstName = $('.fatherfirstname').val();
-		const fatherMiddleName = $('.fathermiddlename').val();
-		const fatherLastName = $('.fatherlastname').val();
+
 		$.ajax({
 			type:'POST',
             url: `/api/users/baby/${userId}`,
@@ -55,30 +49,13 @@ function submitBabyInfo(){
 		      }
 		 	},
             data: JSON.stringify({
-                'baby': {
-		          'name': {
-		            'firstName': babyFirstName,
-		            'middleName': babyMiddleName,
-		            'lastName': babyLastName
-		          },
-		          'dateOfBirth': dateOfBirth,
-		          'sex': babyGender,
-		          'parents': {
-		            'mother': {
-		              'motherFirstName': motherFirstName,
-		              'motherMiddleName': motherMiddleName,
-		              'motherLastName': motherLastName
-		            },
-		            'father': {
-		              'fatherFirstName': fatherFirstName,
-		              'fatherMiddleName': fatherMiddleName,
-		              'fatherLastName':fatherLastName
-		            }
-		          },
-		          'birthCity': birthCity,
-		          'birthWeight': birthWeight,
-		          'birthLength': birthLength
-		        },
+		        'firstName': babyFirstName,
+		        'middleName': babyMiddleName,
+		        'lastName': babyLastName,
+		        'dateOfBirth': dateOfBirth,
+		        'birthCity': birthCity,
+		        'birthWeight': birthWeight,
+		        'birthLength': birthLength,
 		        'userID': userId
             }),
             dataType: 'json',
@@ -102,16 +79,9 @@ function clearInputs() {
 	$('.babymiddlename').val('');
 	$('.babylastname').val('');
 	$('.dateofbirth').val('');
-	$('.babygender').val('');
 	$('.birthCity').val('');
 	$('.birthweight').val('');
 	$('.birthlength').val('');
-	$('.motherfirstname').val('');
-	$('.mothermiddlename').val('');
-	$('.motherlastname').val('');
-	$('.fatherfirstname').val('');
-	$('.fathermiddlename').val('');
-	$('.fatherlastname').val('');
 }
 
 //this fucntion calculates the how many months between dates
@@ -199,10 +169,10 @@ function getAllBabyInputs() {
 //this is the html of the listed baby
 function babySnapShotHTML(babyObj) {
 	let babyId = babyObj.id;
-	let first = babyObj.baby.name.firstName;
-	let middle = babyObj.baby.name.middleName[0];
-	let last = babyObj.baby.name.lastName;
-	let age = babyObj.baby.dateOfBirth;
+	let first = babyObj.firstName;
+	let middle = babyObj.middleName[0];
+	let last = babyObj.lastName;
+	let age = babyObj.dateOfBirth;
 	return `	<div id="${babyId}" class="snapBaby box-structure">
 					<div class="snapName">
 						<h2>${first} ${middle} ${last}</h2>
@@ -224,7 +194,7 @@ function babySnapShotHTML(babyObj) {
 
 function milestoneHTML(babyObj) {
 	let babyId = babyObj.id;
-	let first = babyObj.baby.name.firstName;
+	let first = babyObj.firstName;
 	return `<div id="${babyId}" class="selectbaby">
 					<div id="">
 						<p><i class="fas fa-star"></i><span>${first}</span></p>

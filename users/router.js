@@ -146,7 +146,7 @@ router.post('/', (req, res) => {
 
 //adding a new baby
 router.post('/baby/:id', jwtAuth, (req, res) => {
-  const requiredFields = ['baby', 'userID'];
+  const requiredFields = ['firstName', 'middleName','lastName', 'dateOfBirth', 'birthCity','birthWeight', 'birthLength', 'userID'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -170,56 +170,31 @@ router.post('/baby/:id', jwtAuth, (req, res) => {
   }
 
   let userID = req.body.userID;
-  let firstName = req.body['baby']['name']['firstName'];
-  let middleName = req.body['baby']['name']['middleName'];
-  let lastName = req.body['baby']['name']['lastName'];
-  let dateOfBirth = req.body.baby.dateOfBirth;
-  let sex = req.body.baby.sex;
-  let motherFirstName = req.body['baby']['parents']['mother']['motherFirstName'];
-  let motherMiddleName = req.body['baby']['parents']['mother']['motherMiddleName'];
-  let motherLastName = req.body['baby']['parents']['mother']['motherLastName'];
-  let fatherFirstName = req.body['baby']['parents']['father']['fatherFirstName'];
-  let fatherMiddleName = req.body['baby']['parents']['father']['fatherMiddleName'];
-  let fatherLastName = req.body['baby']['parents']['father']['fatherLastName'];
-  let birthCity = req.body.baby.birthCity;
-  let birthWeight = req.body.baby.birthWeight;
-  let birthLength = req.body.baby.birthLength;
+  let firstName = req.body['firstName'];
+  let middleName = req.body['middleName'];
+  let lastName = req.body['lastName'];
+  let dateOfBirth = req.body.dateOfBirth;
+  let birthCity = req.body.birthCity;
+  let birthWeight = req.body.birthWeight;
+  let birthLength = req.body.birthLength;
 
   firstName = firstName.trim();
   middleName = middleName.trim();
   lastName = lastName.trim();
   dateOfBirth = dateOfBirth.trim();
-  sex = sex.trim();
   birthCity = birthCity.trim();
   birthLength = birthLength.trim();
   birthWeight = birthWeight.trim();
   userID = userID.trim();
 
   return Baby.create({
-        baby: {
-          name: {
-            firstName,
-            middleName,
-            lastName
-          },
-          dateOfBirth,
-          sex,
-          parents: {
-            mother: {
-              motherFirstName,
-              motherMiddleName,
-              motherLastName
-            },
-            father: {
-              fatherFirstName,
-              fatherMiddleName,
-              fatherLastName
-            }
-          },
-          birthCity,
-          birthWeight,
-          birthLength
-        },
+        firstName,
+        middleName,
+        lastName,
+        dateOfBirth,
+        birthCity,
+        birthWeight,
+        birthLength,
         userID
     })
     .then(babys => {
@@ -420,7 +395,7 @@ router.get('/:id', (req, res) => {
 
 //delete the user's baby from the database
 //code works but might want to add the abillity to delete the milesotnes associated with the baby ***
-router.delete('/baby/:id', (req, res) => {
+router.delete('/baby/:id', jwtAuth,(req, res) => {
   console.log(req.params.id);
 
   const babysId = req.params.id;

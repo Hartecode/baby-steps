@@ -24,38 +24,21 @@ const UserSchema = mongoose.Schema({
 });
 
 const babySchema = mongoose.Schema({
-  baby: {
-    name: {
-      firstName: String,
-      middleName: String,
-      lastName: String
-    },
-    dateOfBirth: String,
-    sex: String,
-    parents: {
-      mother: {
-        motherFirstName: String,
-        motherMiddleName: String,
-        motherLastName: String
-      },
-      father: {
-        fatherFirstName: String,
-        fatherMiddleName: String,
-        fatherLastName: String
-      }
-    },
-    birthCity: String,
-    birthWeight: String,
-    birthLength: String
-  },
+  firstName: String,
+  middleName: String,
+  lastName: String,
+  dateOfBirth: String,
+  birthCity: String,
+  birthWeight: String,
+  birthLength: String,
   userID: String
 });
 
 const milestonesSchema = mongoose.Schema({
-        title: String,
-        description: String,
-        date: String,
-        babyID: String
+    title: String,
+    description: String,
+    date: String,
+    babyID: String
 });
 
 
@@ -89,30 +72,13 @@ UserSchema.methods.serialize = function() {
 babySchema.methods.serialize = function() {
   return {
     id: this._id,
-    baby: {
-      name: {
-        firstName: this.baby.name.firstName || '',
-        middleName: this.baby.name.middleName || '',
-        lastName: this.baby.name.lastName || ''
-      },
-      dateOfBirth: this.baby.dateOfBirth || '',
-      sex: this.baby.sex || '',
-      parents: {
-        mother: {
-          motherFirstName: this.baby.parents.mother.motherFirstName || '',
-          motherMiddleName: this.baby.parents.mother.motherMiddleName || '',
-          motherLastName: this.baby.parents.mother.motherLastName || ''
-        },
-        father: {
-          fatherFirstName: this.baby.parents.father.fatherFirstName || '',
-          fatherMiddleName: this.baby.parents.father.fatherMiddleName || '',
-          fatherLastName: this.baby.parents.father.fatherLastName || ''
-        }
-      },
-      birthCity: this.baby.birthCity || '',
-      birthWeight: this.baby.birthWeight || '',
-      birthLength: this.baby.birthLength || ''
-    },
+    firstName: this.firstName || '',
+    middleName: this.middleName || '',
+    lastName: this.lastName || '',
+    dateOfBirth: this.dateOfBirth || '',
+    birthCity: this.birthCity || '',
+    birthWeight: this.birthWeight || '',
+    birthLength: this.birthLength || '',
     userID: this.userID
   };
 };
