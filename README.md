@@ -5,11 +5,12 @@ During the first year of a babies life they can go through a number a different 
 <h2>Screen Shots</h2>
 <hr>
 <h3>Sign In/Sign Up</h3>
-
+<img src="screenshots/logingscreen.png">
+<img src="screenshots/signupscreen.png">
 <h3>Dashboard</h3>
-
+<img src="screenshots/dashboard.png">
 <h3>Milestones</h3>
-
+<img src="screenshots/milestones.png">
 <h2>DEMO</h2>
 <hr>
 <a href="https://babysteps-milestone.herokuapp.com/">Live Demo</a>
