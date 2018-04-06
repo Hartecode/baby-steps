@@ -22,6 +22,7 @@ function signUp() {
 function logInTemplate() {
     return `<form autocomplete="on">
                 <fieldset>
+                    <div class="loginError"></div>
                     <legend class="login-register-title"> LOGIN</legend>
                     <label for="username">User Name:</label>
                     <br>
@@ -41,6 +42,7 @@ function logInTemplate() {
 function signUpTemplate() {
     return `<form autocomplete="on">
                 <fieldset>
+                    <div class="loginError"></div>
                     <legend class="login-register-title"> Sign Up</legend>
                     <label for="username">User Name:</label>
                     <br>
@@ -90,7 +92,14 @@ function postAuthLogin(username,password) {
             }),
           dataType: 'json',
           contentType: "application/json",
-          error: error => console.log(error)
+          error: error => {
+            console.log(error);
+            if(error.responseText === 'Unauthorized'){
+                $('.loginError').text('The username or password you’ve entered doesn’t match any account.');
+            }else {
+                $('.loginError').text('Username/password error');
+            }
+          }
         })
         .done(function(json){
             console.log(json);
@@ -128,7 +137,10 @@ function signUpAuth(){
             }),
             dataType: 'json',
             contentType: "application/json",
-            error: error => console.log(error)
+            error: error => {
+                console.log(error);
+                $('.loginError').text(`${error.responseJSON.location}: ${error.responseJSON.message}`);
+            }
         })
         .done(function(json){
             console.log(json);
