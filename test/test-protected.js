@@ -1,158 +1,230 @@
-'use strict';
-global.DATABASE_URL = 'mongodb://localhost/test-baby-steps';
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const jwt = require('jsonwebtoken');
+// 'use strict';
+// global.DATABASE_URL = 'mongodb://localhost/test-baby-steps';
+// const chai = require('chai');
+// const chaiHttp = require('chai-http');
+// const jwt = require('jsonwebtoken');
 
-const {app, runServer, closeServer} = require('../server');
-const {User} = require('../users');
-const {JWT_SECRET} = require('../config');
+// const {app, runServer, closeServer} = require('../server');
+// const {Baby} = require('../users');
+// const {JWT_SECRET} = require('../config');
 
-const expect = chai.expect;
+// const expect = chai.expect;
 
-// This let's us make HTTP requests
-// in our tests.
-// see: https://github.com/chaijs/chai-http
-chai.use(chaiHttp);
+// // This let's us make HTTP requests
+// // in our tests.
+// // see: https://github.com/chaijs/chai-http
+// chai.use(chaiHttp);
 
-describe('Protected endpoint', function() {
-  const username = 'exampleUser';
-  const password = 'examplePass';
-  const firstName = 'Example';
-  const lastName = 'User';
-  const email = 'example@example.com';
+// describe('User Baby endpoint', function() {
+//   const username = 'exampleUser';
+//   const firstName = 'Example';
+//   const middleName = 'ExampleMiddle'
+//   const lastName = 'ExampleLast';
+//   const dateOfBirth ='2017-01-01';
+//   const birthCity = 'New Example';
+//   const birthWeight = '7lb';
+//   const birthLength = '20in';
+//   const userID = '7468712482197329';
 
-  before(function() {
-    return runServer();
-  });
+//   const usernameB = 'exampleUserB';
+//   const passwordB = 'examplePassB';
+//   const firstNameB = 'ExampleB';
+//   const lastNameB = 'UserB';
+//   const emailB = 'exampleB@example.com';
 
-  after(function() {
-    return closeServer();
-  });
+//   before(function() {
+//     return runServer();
+//   });
 
-  beforeEach(function() {
-    return User.hashPassword(password).then(password =>
-      User.create({
-        username,
-        password,
-        firstName,
-        lastName,
-        email
-      })
-    );
-  });
+//   after(function() {
+//     return closeServer();
+//   });
 
-  afterEach(function() {
-    return User.remove({});
-  });
+//   beforeEach(function() {});
 
-  describe('/api/protected', function() {
-    it('Should reject requests with no credentials', function() {
-      return chai
-        .request(app)
-        .get('/api/protected')
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
+//   afterEach(function() {
+//     return Baby.remove({});
+//   });
 
-          const res = err.response;
-          expect(res).to.have.status(401);
-        });
-    });
+//   describe('/api/user/baby', function() {
 
-    it('Should reject requests with an invalid token', function() {
-      const token = jwt.sign(
-        {
-          username,
-          firstName,
-          lastName
-        },
-        'wrongSecret',
-        {
-          algorithm: 'HS256',
-          expiresIn: '7d'
-        }
-      );
+//     describe('POST', function() {
+//       it('Should create a new baby', function() {
+//         const token = jwt.sign(
+//           {
+//             firstName,
+//             middleName,
+//             lastName,
+//             dateOfBirth,
+//             birthCity,
+//             birthWeight,
+//             birthLength,
+//             userID
+//           },
+//           JWT_SECRET,
+//           {
+//             algorithm: 'HS256',
+//             subject: username,
+//             expiresIn: '7d'
+//           }
+//         );
 
-      return chai
-        .request(app)
-        .get('/api/protected')
-        .set('Authorization', `Bearer ${token}`)
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
+//         return chai
+//           .request(app)
+//           .post('/api/users/baby/:id')
+//           .send({
+//             firstName,
+//             middleName,
+//             lastName,
+//             dateOfBirth,
+//             birthCity,
+//             birthWeight,
+//             birthLength,
+//             userID
+//           })
+//           .set('Authorization', `Bearer ${token}`)
+//           .then(res => {
+//             expect(res).to.have.status(201);
+//             expect(res.body).to.be.an('object');
+//             expect(res.body).to.have.keys(
+//               'id',
+//               'firstName',
+//               'middleName',
+//               'lastName',
+//               'dateOfBirth',
+//               'birthCity',
+//               'birthWeight',
+//               'birthLength',
+//               'userID'
+//             );
+//             expect(res.body.firstName).to.equal(firstName);
+//             expect(res.body.lastName).to.equal(lastName);
+//           });
+//       });
+//     });
 
-          const res = err.response;
-          expect(res).to.have.status(401);
-        });
-    });
-    it('Should reject requests with an expired token', function() {
-      const token = jwt.sign(
-        {
-          user: {
-            username,
-            firstName,
-            lastName
-          },
-          exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          subject: username
-        }
-      );
+//     describe('GET', function() {
+//       // it('Should reject requests with no credentials', function() {
+//       //   return chai
+//       //     .request(app)
+//       //     .get(`/api/user/baby/${userID}`)
+//       //     .then(() =>
+//       //       expect.fail(null, null, 'Request should not succeed')
+//       //     )
+//       //     .catch(err => {
+//       //       if (err instanceof chai.AssertionError) {
+//       //         throw err;
+//       //       }
 
-      return chai
-        .request(app)
-        .get('/api/protected')
-        .set('authorization', `Bearer ${token}`)
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
+//       //       const res = err.response;
+//       //       expect(res).to.have.status(401);
+//       //     });
+//       // });
 
-          const res = err.response;
-          expect(res).to.have.status(401);
-        });
-    });
-    it('Should send protected data', function() {
-      const token = jwt.sign(
-        {
-          user: {
-            username,
-            firstName,
-            lastName
-          }
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          subject: username,
-          expiresIn: '7d'
-        }
-      );
+//       it('Should reject requests with an invalid token', function() {
+//         // const token = jwt.sign(
+//         //   {
+//         //     firstName,
+//         //     middleName,
+//         //     lastName,
+//         //     dateOfBirth,
+//         //     birthCity,
+//         //     birthWeight,
+//         //     birthLength,
+//         //     userID
+//         //   },
+//         //   'wrongSecret',
+//         //   {
+//         //     algorithm: 'HS256',
+//         //     expiresIn: '7d'
+//         //   }
+//         // );
 
-      return chai
-        .request(app)
-        .get('/api/protected')
-        .set('authorization', `Bearer ${token}`)
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body.data).to.equal('rosebud');
-        });
-    });
-  });
-});
+//         return chai
+//           .request(app)
+//           .get(`/api/user/baby/${userID}`)
+//           .set('Authorization', `Bearer ${token}`)
+//           .then(() =>
+//             expect.fail(null, null, 'Request should not succeed')
+//           )
+//           .catch(err => {
+//             if (err instanceof chai.AssertionError) {
+//               throw err;
+//             }
+
+//             const res = err.response;
+//             expect(res).to.have.status(401);
+//           });
+//       });
+//       it('Should reject requests with an expired token', function() {
+//         const token = jwt.sign(
+//           {
+//             firstName,
+//             middleName,
+//             lastName,
+//             dateOfBirth,
+//             birthCity,
+//             birthWeight,
+//             birthLength,
+//             userID,
+//             exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
+//           },
+//           JWT_SECRET,
+//           {
+//             algorithm: 'HS256',
+//             subject: username
+//           }
+//         );
+
+//         return chai
+//           .request(app)
+//           .get(`/api/user/baby/${userID}`)
+//           .set('authorization', `Bearer ${token}`)
+//           .then(() =>
+//             expect.fail(null, null, 'Request should not succeed')
+//           )
+//           .catch(err => {
+//             if (err instanceof chai.AssertionError) {
+//               throw err;
+//             }
+
+//             const res = err.response;
+//             expect(res).to.have.status(401);
+//           });
+//       });
+
+//       it('Should send protected data', function() {
+//         const token = jwt.sign(
+//           {
+//             firstName,
+//             middleName,
+//             lastName,
+//             dateOfBirth,
+//             birthCity,
+//             birthWeight,
+//             birthLength,
+//             userID
+//           },
+//           JWT_SECRET,
+//           {
+//             algorithm: 'HS256',
+//             subject: username,
+//             expiresIn: '7d'
+//           }
+//         );
+
+//         return chai
+//           .request(app)
+//           .get(`/api/user/baby/${userID}`)
+//           .set('authorization', `Bearer ${token}`)
+//           .then(res => {
+//             expect(res).to.have.status(200);
+//             expect(res.body).to.be.an('object');
+//             expect(res.body.data).to.equal('rosebud');
+//           });
+//       });
+
+//     });
+    
+//   });
+// });

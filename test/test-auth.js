@@ -1,10 +1,12 @@
 'use strict';
-global.DATABASE_URL = 'mongodb://localhost/test-baby-steps';
+// global.DATABASE_URL = 'mongodb://localhost/test-baby-steps';
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
 
 const { app, runServer, closeServer } = require('../server');
+const {TEST_DATABASE_URL } = require('../config');
 const { User } = require('../users');
 const { JWT_SECRET } = require('../config');
 
@@ -23,7 +25,7 @@ describe('Auth endpoints', function () {
   const email = 'example@example.com';
 
   before(function () {
-    return runServer();
+    return runServer(TEST_DATABASE_URL);
   });
 
   after(function () {

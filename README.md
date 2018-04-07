@@ -22,8 +22,8 @@ Front End
 	<li>html</li>
 	<li>css</li>
 	<li>javascript</li>
+	<li>jQuery</li>
 	<li>AJAX</li>
-	<li></li>
 </ul>
 Back End
 <ul>

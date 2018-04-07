@@ -61,25 +61,42 @@ app.use('*', function (req, res) {
 let server;
 
 //as stated this fundtion runs the server
-function runServer() {
+// function runServer(database) {
+//   return new Promise((resolve, reject) => {
+//     mongoose.connect(database, err => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       server = app
+//       	.listen(PORT, () => {
+// 	        console.log(`Your app is listening on port ${PORT}`);
+// 	        resolve();
+// 	    })
+// 	    .on('error', err => {
+// 	    	mongoose.disconnect();
+// 	      	reject(err);
+// 	    });
+//     });
+//   });
+// }
+
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, err => {
+    mongoose.connect(databaseUrl, err => {
       if (err) {
         return reject(err);
       }
-      server = app
-      	.listen(PORT, () => {
-	        console.log(`Your app is listening on port ${PORT}`);
-	        resolve();
-	    })
-	    .on('error', err => {
-	    	mongoose.disconnect();
-	      	reject(err);
-	    });
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
     });
   });
 }
-
 
 //as stated this function closes the server
 function closeServer() {
