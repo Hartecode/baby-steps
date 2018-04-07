@@ -1,6 +1,7 @@
 'use strick';
 
 const babyId = localStorage.getItem('babyId');
+console.log(babyId);
 
 let listOfMilestones;
 let babyInfoJSON;
@@ -94,6 +95,7 @@ function getAllMilestones() {
 			console.log(json);
 			if(json.length < 1) {
 				$('.startmile').fadeIn();
+				$('.milestonelist').html('<h3>No Milestones on file</h3>');
 			} else {
 				listOfMilestones = json.map(obj => {
 					return milestoneHTML(obj);
@@ -277,7 +279,17 @@ $('.baby-edit').on('submit', function(e) {
 	const birthCity= $(this).closest('.baby-edit').find('.birthCity').val();
 	const birthWeight = $(this).closest('.baby-edit').find('.birthweight').val();
 	const birthLength = $(this).closest('.baby-edit').find('.birthlength').val();
-
+	const dataPut = JSON.stringify({
+			'id': babyId,
+	        'firstName': babyFirstName,
+	        'middleName': babyMiddleName,
+	        'lastName': babyLastName,
+	        'dateOfBirth': dateOfBirth,
+	        'birthCity': birthCity,
+	        'birthWeight': birthWeight,
+	        'birthLength': birthLength
+	    });
+	console.log(dataPut);
 	$.ajax({
 		type: "PUT",
 		url: `api/users/baby/${babyId}`,
@@ -287,16 +299,7 @@ $('.baby-edit').on('submit', function(e) {
 		          xhr.setRequestHeader("Authorization", "Bearer " +  window.sessionStorage.accessToken);
 		      }
 		 }, 
-		data: JSON.stringify({
-			'id': babyId,
-	        'firstName': babyFirstName,
-	        'middleName': babyMiddleName,
-	        'lastName': babyLastName,
-	        'dateOfBirth': dateOfBirth,
-	        'birthCity': birthCity,
-	        'birthWeight': birthWeight,
-	        'birthLength': birthLength
-	    }),
+		data: dataPut,
 	    dataType: 'json',
 	    contentType: "application/json",
 	    error: error => console.log(error)
