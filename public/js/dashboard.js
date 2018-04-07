@@ -116,15 +116,22 @@ function getAllBabyInputs() {
 		success: function(json) {
 			let listOfBabies;
 			let listOfBabyMile;
-
-			listOfBabies = json.map(obj =>{
+			console.log(json.length);
+			if(json.length < 1) {
+				$('.startdash').fadeIn();
+				$('.listofbabys').html('<h3>There are no babies listed</h3>');
+			}else {
+				listOfBabies = json.map(obj =>{
 				return babySnapShotHTML(obj);
-			});
-			listOfBabyMile = json.map(obj => {
-				return milestoneHTML(obj);
-			});
-			$('.babyMileList').html(listOfBabyMile);
-			$('.listofbabys').html(listOfBabies);		
+				});
+
+				listOfBabyMile = json.map(obj => {
+					return milestoneHTML(obj);
+				});
+
+				$('.babyMileList').html(listOfBabyMile);
+				$('.listofbabys').html(listOfBabies);	
+			}	
 		}
 	})
 	.done(function(){

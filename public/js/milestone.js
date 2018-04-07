@@ -91,10 +91,15 @@ function getAllMilestones() {
 			console.log(error);
 		},
 		success: function(json) {
+			console.log(json);
+			if(json.length < 1) {
+				$('.startmile').fadeIn();
+			} else {
 				listOfMilestones = json.map(obj => {
 					return milestoneHTML(obj);
 				});
 				$('.milestonelist').html(listOfMilestones);
+			}
 		}
 	});
 }
@@ -174,7 +179,7 @@ function milestoneHTML(obj) {
 				<div class="stonecontainer">
 				<div class="milestonedate">${stoneDate}</div>
 				<div class="milestonetitle">${stoneTitle}</div>
-				<div class="milebtn"><button class="view-dec btn">More</button></div>
+				<div class="milebtn"><button class="view-dec btn posbtn">+</button></div>
 				</div>
 				<div class="milehidden hidden">
 					<div class="milestonedesc">${stoneDec}</div>
@@ -348,6 +353,7 @@ $('.baby-edit').on('click','#editbaby', function(event){
 //this expands and retracts the milestone info
 $('.milestonelist').on('click', '.view-dec', function() {
 	$(this).closest('.fullstone').find('.milehidden').toggleClass('hidden');
+	($(this).text() == '+')? $(this).text('-'): $(this).text('+');
 });
 
 //this is the click listenr for the add milestone button

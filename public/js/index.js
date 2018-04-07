@@ -24,7 +24,7 @@ function logInTemplate() {
                 <fieldset>
                     <div class="loginError"></div>
                     <legend class="login-register-title"> LOGIN</legend>
-                    <label for="username">User Name:</label>
+                    <label for="username">Username:</label>
                     <br>
                     <input class="input-sizing username-login" type="text" name="username" required>
                     <br>
@@ -44,7 +44,7 @@ function signUpTemplate() {
                 <fieldset>
                     <div class="loginError"></div>
                     <legend class="login-register-title"> Sign Up</legend>
-                    <label for="username">User Name:</label>
+                    <label for="username">Username:</label>
                     <br>
                     <input class="input-sizing username-signup" type="text" name="username" pattern=".{1,}"   required title="1 characters minimum" required>
                     <br>

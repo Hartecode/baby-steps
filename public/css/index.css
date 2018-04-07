@@ -4,6 +4,8 @@ body {
 }
 
 header {
+    position: fixed;
+    top: 0; 
 	box-sizing: border-box;
     width: 100%;
     height: 50px;
@@ -11,8 +13,8 @@ header {
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom: 2px solid #3D9A00;
-    color: #3D9A00;
+    border-bottom: 2px solid #2740a5;
+    color: #2740a5;
 }
 
 .dashboard-body header {
@@ -51,7 +53,13 @@ hr {
 }
 
 a:visited {
-  color: #3D9A00;
+  color: #2740a5;
+}
+
+.indexBody {
+    background-color: #ffffff4f;
+    height: 100%;
+    padding-top: 160px;
 }
 
 .logo {
@@ -77,14 +85,14 @@ a:visited {
 }
 
 .dashboard-body {
-	color: #3D9A00;
+	color: #2740a5;
 }
 
 .container {
 	max-width: 800px;
     margin: auto;
     padding-top: 50px;
-    background-color: #FFAF56;
+    background-color: #d4e4db;
     min-height: 100vh;
     box-shadow: 0px 0px 10px 3px #080C5D;
 }
@@ -118,7 +126,7 @@ a:visited {
 }
 
 .box-structure {
-	border: 2px solid #3D9A00;
+	border: 2px solid #2740a5;
     border-radius: 15px;
     padding: 5px;
     box-sizing: border-box;
@@ -162,11 +170,11 @@ a:visited {
     -webkit-transition: all .5s; /* Safari */
 }
 
-.addbaby:hover, .selectbaby:hover, .snapBaby:hover {     
+.addbaby:hover, .selectbaby:hover, .snapBaby:hover, .addmilestonebtn:hover {     
     background-color: #eab2fb; 
 }
 
-#opennav:hover, #about:hover, #signout:hover, .logo:hover {
+#opennav:hover, #about:hover, #signout:hover, .logo:hover  {
     color: #FFAF56; 
 }
 
@@ -188,13 +196,18 @@ a:visited {
     padding-bottom: 10px;
 }
 
+.listofbabys {
+    padding: 5px;
+}
+
 .snapBaby {
     box-sizing: border-box;
 	min-height: 200px;
     margin-bottom: 10px;
     text-align: center;
     cursor: pointer;
-    box-shadow: -2px -1px 0px 0px;
+    border: 1px;
+    box-shadow: 0px 0px 10px 3px #080C5D;
     transition: all .5s;
     -webkit-transition: all .5s; /* Safari */
 }
@@ -350,7 +363,7 @@ a:visited {
 .addmilestonebtn {
     text-align: center;
     font-size: 30px;
-    border: 2px solid #3D9A00;
+    border: 2px solid #2740a5;
     border-radius: 20px;
     height: 57px;
     width: 300px;
