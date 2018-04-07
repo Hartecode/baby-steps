@@ -276,7 +276,7 @@ router.put('/baby/:id', jwtAuth, (req, res) => {
   }
 
   const toUpdate = {};
-  const requiredFields = ['id', 'baby'];
+  const requiredFields = ['id','firstName', 'middleName','lastName', 'dateOfBirth', 'birthCity','birthWeight', 'birthLength'];
 
 
   requiredFields.forEach(field => {
