@@ -13,7 +13,10 @@ Babies experience so much exciting growth very quickly. Baby Steps allows the us
 <img src="screenshots/milestones.png">
 <h2>DEMO</h2>
 <hr>
-<a href="https://babysteps-milestone.herokuapp.com/">Live Demo</a>
+<a href="https://babysteps-milestone.herokuapp.com/" target="_blank">Live Demo</a>
+Sample logIn
+Username: bacon4ever
+Password: notagoodpassword
 
 <h2>Technology</h2>
 <hr>
@@ -29,9 +32,17 @@ Back End
 <ul>
 	<li>node.js</li>
 	<li>express</li>
+	<li>mongoDB</li>
+	<li>mongoose</li>
 	<li>passport</li>
 	<li>chai</li>
 	<li>jsonwebtoken</li>
+</ul>
+Third Party Resources 
+<ul>
+	<li><a href="https://mlab.com/welcome/" target="_blank">mlab</a></li>
+	<li><a href="https://travis-ci.org/" target="_blank">Travis CI</a></li>
+	<li><a href="https://www.heroku.com/home" target="_blank">heroku</a></li>
 </ul>
 
 <h2>Credit</h2>
