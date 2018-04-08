@@ -14,9 +14,10 @@ Babies experience so much exciting growth very quickly. Baby Steps allows the us
 <h2>DEMO</h2>
 <hr>
 <a href="https://babysteps-milestone.herokuapp.com/" target="_blank">Live Demo</a>
-Sample logIn
-Username: bacon4ever
-Password: notagoodpassword
+<h3>Sample logIn</h3>
+<p>Username: bacon4ever</p>
+<p>Password: notagoodpassword</p>
+
 
 <h2>Technology</h2>
 <hr>
