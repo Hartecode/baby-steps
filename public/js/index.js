@@ -20,7 +20,7 @@ function signUp() {
 
 //this returns the html code for login form
 function logInTemplate() {
-    return `<form autocomplete="on">
+    return `<form role="form" autocomplete="on">
                 <fieldset>
                     <div class="loginError"></div>
                     <legend class="login-register-title"> LOGIN</legend>
@@ -40,7 +40,7 @@ function logInTemplate() {
 
 //this function displays the signup HTML 
 function signUpTemplate() {
-    return `<form autocomplete="on">
+    return `<form role="form" autocomplete="on">
                 <fieldset>
                     <div class="loginError"></div>
                     <legend class="login-register-title"> Sign Up</legend>

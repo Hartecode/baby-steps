@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
   	<meta name="description" content="Recored your baby's milestones durinhg their first year.">
@@ -16,15 +16,15 @@
 	<header role="banner">
 		<h1 class="logo">Baby Steps</h1>
 		<div id="opennav"><i class="fas fa-bars"></i></div>
-		<div class="navbar">
+		<nav role="navigation" class="navbar">
 			<div id="closenav"><i class="fas fa-times"></i></div>
 			<div id="about" class="navbutton">About</div>
 			<div id="signout" class="navbutton"><i class="fas fa-user-circle"></i></div>
-		</div>	
+		</nav>	
 	</header>
 	<main class="container" role="main">
 		<section class="addboxdashboard" role='region'>
-				<h1>Hello, <span class="usergreeting"></span>!</h1>
+				<h1>Hello, <span class="usergreeting" aria-live="assertive"></span>!</h1>
 		</section>
 		<section class="about modal">
 			<div class="modal-content">
@@ -67,14 +67,12 @@
 			</div>
 			<div class="addboxdashboard col-6">
 				<h2>Add New Milestone:</h2>
-				<div class="babyMileList">			
-				</div>
-				
+				<div class="babyMileList" aria-live="assertive"></div>
 			</div>
 		</section>
 
 		<section class="babyforminput modal" role="region">
-			<form class="babyfileinput modal-content">
+			<form role="form" class="babyfileinput modal-content">
 					<fieldset class="row">
 						<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
 						<h3>Baby</h3>
@@ -133,7 +131,7 @@
 		<section role="region">
 			<h2>Baby(s) Snapshot</h2>
 			<hr>
-			<div class="listofbabys"></div>
+			<div class="listofbabys" aria-live="assertive"></div>
 		</section>
 	</main>
 

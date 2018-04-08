@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
   	<meta name="description" content="Recored your baby's milestones durinhg their first year.">
@@ -17,15 +17,15 @@
 	<header role="banner">
 		<a href="dashboard.html"><h1 class="logo">Baby Steps</h1></a>
 		<div id="opennav"><i class="fas fa-bars"></i></div>
-		<div class="navbar">
+		<nav role="navigation" class="navbar">
 			<div id="closenav"><i class="fas fa-times"></i></div>
 			<div id="about" class="navbutton">About</div>
 			<div id="signout" class="navbutton"><i class="fas fa-user-circle"></i></div>
-		</div>	
+		</nav>	
 	</header>
 	<main role="main" class="container">
 
-		<section class="about modal">
+		<section role="region" class="about modal">
 			<div class="modal-content">
 				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
 				<h1>About</h1>
@@ -57,11 +57,11 @@
 			</div>
 		</section>
 
-		<section role="region" class="baby-edit modal"></section>
+		<section role="region" class="baby-edit modal" aria-live="assertive"></section>
 
-		<section role="region" class="mile-edit modal"></section>
+		<section role="region" class="mile-edit modal" aria-live="assertive"></section>
 
-		<section role="region" class="baby-info">
+		<section role="region" class="baby-info" aria-live="assertive">
 			<div>
 				<img class="babyicon" src="pic/babyicon.png">
 				<h1 class="bfirstname"></h1>	
@@ -70,7 +70,7 @@
 		</section>
 
 		<section role="region" class="mile-add modal">
-			<form class="mileinput modal-content">
+			<form role="form" class="mileinput modal-content">
 				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
 				<fieldset class="row">
 					<div class="col-3">
@@ -98,9 +98,7 @@
 		<section role="region">
 			<div class="addmilestonebtn"><i class="fas fa-star"></i>Add Milestone</div>
 			<hr>
-			<div class="milestonelist">
-				
-			</div>
+			<div class="milestonelist" aria-live="assertive"></div>
 		</section>
 	</main>
 

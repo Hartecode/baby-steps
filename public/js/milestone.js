@@ -115,7 +115,7 @@ function babyHTML(obj) {
 	const birthCity= obj.birthCity;
 	const birthWeight = obj.birthWeight;
 	const birthLength = obj.birthLength;
-	return `<form class="babyfileinput modal-content">
+	return `<form role="form" class="babyfileinput modal-content">
 						<div><i class="fas fa-times fa-3x closebtn"></i></div>
 						<fieldset class="row">
 							<h3>Baby</h3>
@@ -225,7 +225,7 @@ $('.milestonelist').on('click', '.editstone', function() {
 //this is the html for the edit mileston
 function milestoneEditHtml(id, date, title, desc){
 
-	return `<form id="${id}" class="mileinput modal-content">
+	return `<form role="form" id="${id}" class="mileinput modal-content">
 				<fieldset class="row">
 					<div><i class="fas fa-times fa-3x closebtn"></i></div>
 					<div class="col-3">
