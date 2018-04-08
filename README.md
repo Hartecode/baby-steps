@@ -1,6 +1,6 @@
-<h1>Babay Steps</h1>
+<h1>Baby Steps</h1>
 <hr>
-During the first year of a babies life they can go through a number a different milestones, achivements, and firsts. This app allows the user to log these different milestones. A new user is able to sign up, add there baby, and add their milestone.  Milestones can be edited and deleted. 
+Babies experience so much exciting growth very quickly. Baby Steps allows the user to log these different milestones. Users can log all of the special moments each of their children has. 
 
 <h2>Screen Shots</h2>
 <hr>
@@ -33,3 +33,7 @@ Back End
 	<li>chai</li>
 	<li>jsonwebtoken</li>
 </ul>
+
+<h2>Credit</h2>
+<hr>
+Index page background image by Guillaume de Germain on Unsplash
