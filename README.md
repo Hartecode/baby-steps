@@ -4,6 +4,8 @@ Babies experience so much exciting growth very quickly. Baby Steps allows the us
 
 <h2>Screen Shots</h2>
 <hr>
+<h3>Landing Page</h3>
+<img src="screenshots/landingcreen.png">
 <h3>Sign In/Sign Up</h3>
 <img src="screenshots/logingscreen.png">
 <img src="screenshots/signupscreen.png">
@@ -14,7 +16,7 @@ Babies experience so much exciting growth very quickly. Baby Steps allows the us
 <h2>DEMO</h2>
 <hr>
 <a href="https://babysteps-milestone.herokuapp.com/" target="_blank">Live Demo</a>
-<h3>Sample logIn</h3>
+<h3>DEMO logIn</h3>
 <p>Username: bacon4ever</p>
 <p>Password: notagoodpassword</p>
 
