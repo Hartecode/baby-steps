@@ -5,7 +5,7 @@ Babies experience so much exciting growth very quickly. Baby Steps allows the us
 <h2>Screen Shots</h2>
 <hr>
 <h3>Landing Page</h3>
-<img src="screenshots/landingcreen.png">
+<img src="screenshots/landingscreen.png">
 <h3>Sign In/Sign Up</h3>
 <img src="screenshots/logingscreen.png">
 <img src="screenshots/signupscreen.png">
