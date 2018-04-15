@@ -10,38 +10,59 @@
 	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/grid.css">
 </head>
-<body class="login-body">
-	<header role="banner">
-		<h1 class="logo">Baby Steps</h1>
-		<div id="opennav"><i class="fas fa-bars"></i></div>
-		<nav role="navigation" class="navbar">
-			<div id="closenav"><i class="fas fa-times"></i></div>
-			<div id="about" class="navbutton">About</div>
-		</nav>
-		
-	</header>
+</head>
+<body class="login-body ">
+	<div class="layer">
+		<header role="banner">
+			<h1 class="logo">Baby Steps</h1>
+			<nav role="navigation" class="landingNav">
+				<p> <a href="https://github.com/Hartecode"  target="_blank"><i class="fab fa-github navlinks"></i></a>
+						<a href="https://codepen.io/Hartecode/"  target="_blank"><i class="fab fa-codepen navlinks"></i></a>
+						<a href="https://www.linkedin.com/in/seanharte/"  target="_blank"><i class="fab fa-linkedin navlinks"></i></a>
+					</p>
+			</nav>
+			
+		</header>
 
-	<main role="main" class="indexBody">
-		<section class="about modal">
-			<div class="modal-content">
-				<div class="closebtn"><i class="fas fa-times fa-3x"></i></div>
-				<h1>About</h1>
-				<p>Baby Steps is a great app to keep track of your baby’s milestones. You can track each milestone, and the date on which it happened. Babies grow up fast, but Baby Steps helps you document every first along the way!</p>
-				<br>
-				<p>This app has been designed and coded by Sean Harte.</p>
-				<br>
-				<p> <a href="https://github.com/Hartecode"  target="_blank"><i class="fab fa-github"></i></a>
-					<a href="https://codepen.io/Hartecode/"  target="_blank"><i class="fab fa-codepen"></i></a>
-					<a href="https://www.linkedin.com/in/seanharte/"  target="_blank"><i class="fab fa-linkedin"></i></a>
-				</p>
-			</div>
-		</section>
-		<section class="login-register" role="region" aria-live="assertive" >
-			<div class="loginButton login">Login</div>
-			<a href="#" class="signup"><p class="toggleReg">Sign up</p></a>
-		</section>
-	</main>
+		<main role="main" class="indexBody">
+		
+			<section class="login-register row" role="region" aria-live="assertive">
+				<div class="col-6 logButtonBox "><div class="signup loginButton">Sign up</div></div>
+				<div class="col-6 logButtonBox "><div class="loginButton login">Login</div></div>
+				
+			</section>
+			<section class="row tutorial" role='region'>
+				<div class="col-12 tutorialDec">
+					<p>Baby Steps is a great app to keep track of your baby’s milestones. You can track each milestone, and the date on which it happened. Babies grow up fast, but Baby Steps helps you document every first along the way!</p>
+				</div>
+
+				<h1>To Get Started:</h1>
+				
+				<div class="col-4">
+					<div class="tutorialBadge">
+						<h2>Sign Up</h2>
+					<div class="tutorialBadgeIcon"><i class="fas fa-user-circle"></i></div>
+					</div> 
+				</div>
+				<div class="col-4">
+					<div class="tutorialBadge">
+						<h2>Add Baby</h2>
+						<img class="tutorialBadgePic" src="pic/babyicon.png">
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="tutorialBadge">
+						<h2>Add Milestones</h2>
+						<div class="tutorialBadgeIcon"><i class="fas fa-star"></i></div>
+					</div>
+				</div>
+				
+			</section>
+		</main>
+	</div>
+	
 	
 	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>

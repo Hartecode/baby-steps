@@ -3,8 +3,7 @@ body {
 	font-family: 'Sniglet', cursive;
 }
 
-header {
-    position: fixed;
+header {;
     top: 0; 
 	box-sizing: border-box;
     width: 100%;
@@ -56,10 +55,18 @@ a:visited {
   color: #2740a5;
 }
 
+
+.layer {
+    background-color: #d4e4db75;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
 .indexBody {
-    background-color: #ffffff4f;
-    height: 100%;
-    padding-top: 160px;
+    margin-top: 98px;
 }
 
 .logo {
@@ -80,7 +87,10 @@ a:visited {
 	background-image: url("../pic/guillaume-de-germain-303020-unsplash.jpg");
 	/*Photo by Guillaume de Germain on Unsplash*/
 	background-position: center;
+    position: relative;
 	background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 	height: 100vh;
 }
 
@@ -99,23 +109,66 @@ a:visited {
 
 .login-register {
 	margin: auto;
-    width: 300px;
-    margin-top: 110px;
+    margin-top: 40px;
     text-align: center;
+    color: #2740a5;
 }
 
-
+.logButtonBox {
+    padding: 20px;
+}
 
 .loginButton {
-	width: 200px;
-    height: 40px;
+    color: #2740a5;
+    height: 50px;
     margin: auto;
     text-align: center;
     font-size: 25px;
     box-sizing: border-box;
-    padding: 3px;
+    padding: 10px;
     cursor: pointer;	
-    background-color: #080c5d80;
+    border-radius: 12px;
+    background-color: #dec281ab;
+    border: 2px solid;
+    box-sizing: border-box;
+}
+
+.tutorial {
+    color: #2740a5;
+    text-align: center;
+}
+
+.tutorial h1{
+    margin-bottom: 20px;
+}
+
+.tutorialDec {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+div.tutorialDec {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.tutorialBadge {
+    border: 2px solid;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin: auto;
+    padding-top: 35px;
+    width: 210px;
+    height: 210px;
+}
+
+.tutorialBadgeIcon {
+    font-size: 100px;
+    color: black;
+}
+
+.tutorialBadgePic {
+    width: 100px;
 }
 
 .toggleReg {
@@ -127,6 +180,7 @@ a:visited {
 
 .box-structure {
 	border: 2px solid #2740a5;
+    width: 300px;
     border-radius: 15px;
     padding: 5px;
     box-sizing: border-box;
@@ -170,11 +224,11 @@ a:visited {
     -webkit-transition: all .5s; /* Safari */
 }
 
-.addbaby:hover, .selectbaby:hover, .snapBaby:hover, .addmilestonebtn:hover {     
+.addbaby:hover, .selectbaby:hover, .snapBaby:hover, .addmilestonebtn:hover, .loginButton:hover {     
     background-color: #eab2fb; 
 }
 
-#opennav:hover, #about:hover, #signout:hover, .logo:hover  {
+#opennav:hover, #about:hover, #signout:hover, .navlinks:hover, .logo:hover  {
     color: #FFAF56; 
 }
 
@@ -400,8 +454,22 @@ a:visited {
     max-height: 90vh;
 }
 
+@media screen and (min-width: 600px) {
+    .indexBody {
+        margin-top: 180px;
+    }
+
+    .loginButton {
+        max-width: 300px;
+    }
+}
+
 /*this is for the responsive nav bar*/
 
+.landingNav{
+    float: right;
+    font-size: 30px;
+}
 
 .navbutton {
     font-size: 30px;
@@ -463,3 +531,4 @@ a:visited {
         display: inline-block;
     }
 }
+
