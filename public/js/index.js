@@ -30,7 +30,7 @@ function logInTemplate() {
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing password-login" type="test" name="password" required>
+                    <input class="input-sizing password-login" type="password" name="password" required>
                     <br>
                     <button class="loginButton signingInAcc" type="submit">Submit</button>
                 </fieldset>
@@ -50,7 +50,7 @@ function signUpTemplate() {
                     <br>
                     <label for="password">Password:</label>
                     <br>
-                    <input class="input-sizing password-signup" type="test" name="password" pattern=".{10, 72}"   required title="3 characters minimum" required>
+                    <input class="input-sizing password-signup" type="text" name="password" pattern=".{10, 72}"   required title="3 characters minimum" required>
                     <br>
                     <label for="firstName">First Name:</label>
                     <br>
