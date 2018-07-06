@@ -116,7 +116,6 @@ function getAllBabyInputs() {
 		success: function(json) {
 			let listOfBabies;
 			let listOfBabyMile;
-			console.log(json.length);
 			if(json.length < 1) {
 				$('.startdash').fadeIn();
 				$('.listofbabys').html('<h3>There are no babies listed</h3>');
@@ -140,7 +139,6 @@ function getAllBabyInputs() {
 		});
 		
 		for(let i = 0; i < ids.length; i++) {
-			console.log(ids[i]);
 			$.ajax({
 				type:'GET',
 		        url: `/api/users/milestone/${ids[i]}`,
@@ -211,13 +209,11 @@ function milestoneHTML(babyObj) {
 
 //when listed baby is clicked it saves the id  to baby id and opens the milesotne page
 $('.listofbabys').on('click', '.snapBaby', function() {
-	console.log($(this).attr('id'));
 	localStorage.setItem('babyId', $(this).attr('id'));
 	window.location = 'milestone.html';
 });
 //listener for the short baby list clicked it saves the id  to baby id and opens the milesotne page
 $('.babyMileList').on('click', '.selectbaby', function() {
-	console.log($(this).attr('id'));
 	localStorage.setItem('babyId', $(this).attr('id'));
 	window.location = 'milestone.html';
 });

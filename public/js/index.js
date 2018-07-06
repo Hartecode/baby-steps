@@ -3,7 +3,6 @@
 //this will display the logIn HTML
 function logIn() {
     $('.login-register').on('click','.login', function(){
-        console.log("log in: click");
         $('.login-register').html(logInTemplate());
         $('.login-register').addClass("box-structure ");
     });
@@ -12,7 +11,6 @@ function logIn() {
 //this will display the signup HTML
 function signUp() {
     $('.login-register').on('click','.signup', function(){
-        console.log("sign up : click");
         $('.login-register').html(signUpTemplate());
         $('.login-register').addClass("box-structure ");
     });
@@ -75,7 +73,6 @@ function signUpTemplate() {
 function signInAuht() {
     $('.login-register').on('click', '.signingInAcc', function(event){
         event.preventDefault();
-        console.log("the submit button was pressed.");
         const username = $('.username-login').val();
         const password = $('.password-login').val();
         postAuthLogin(username,password);
@@ -102,7 +99,6 @@ function postAuthLogin(username,password) {
           }
         })
         .done(function(json){
-            console.log(json);
             //the jwt is stored in browser
             window.sessionStorage.accessToken = json.authToken;
             // localStorage.setItem('token', json.authToken);
@@ -117,13 +113,10 @@ function signUpAuth(){
     console.log("signUpAuth: running");
     $('.login-register').on('click', '.signingUpNewAcc', function(event){
         event.preventDefault();
-        console.log("the submit button was pressed.");
         const username = $('.username-signup').val();
         const password = $('.password-signup').val();
         const firstname = $('.firstname-signup').val();
-        console.log(firstname);
         const lastname = $('.lastname-signup').val();
-        console.log(lastname);
         const email = $('.email-signup').val();
         $.ajax({
             type:'POST',
@@ -143,7 +136,6 @@ function signUpAuth(){
             }
         })
         .done(function(json){
-            console.log(json);
             postAuthLogin(username, password);
         });
 

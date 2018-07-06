@@ -1,7 +1,6 @@
 'use strick';
 
 const babyId = localStorage.getItem('babyId');
-console.log(babyId);
 
 let listOfMilestones;
 let babyInfoJSON;
@@ -253,7 +252,6 @@ function milestoneEditHtml(id, date, title, desc){
 
 //this deletes the baby and their milestones
 $('.baby-edit').on('click', '#deletebaby', function() {
-	console.log('baby info/milestones: deleted');
 	$.ajax({
             type:'DELETE',
             url: `/api/users/baby/${babyId}`,
@@ -289,7 +287,7 @@ $('.baby-edit').on('submit', function(e) {
 	        'birthWeight': birthWeight,
 	        'birthLength': birthLength
 	    });
-	console.log(dataPut);
+	
 	$.ajax({
 		type: "PUT",
 		url: `api/users/baby/${babyId}`,
@@ -349,7 +347,6 @@ $('.babyview-edit').on('click',function() {
 //click listenr for edit button for baby which allows the form to able to eidt
 $('.baby-edit').on('click','#editbaby', function(event){
 	event.preventDefault();
-	console.log('edit clicked');
    $('.disabledInp').prop("disabled", false);
 });
 
