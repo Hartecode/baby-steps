@@ -110,7 +110,6 @@ function postAuthLogin(username,password) {
 
 //this function submits a new userinfo & longsIn
 function signUpAuth(){
-    console.log("signUpAuth: running");
     $('.login-register').on('click', '.signingUpNewAcc', function(event){
         event.preventDefault();
         const username = $('.username-signup').val();
