@@ -141,6 +141,14 @@ function signUpAuth(){
     });
 }
 
+//this function will listing if user clicks the demo button
+function runDemo() {
+    const demoUserName = 'bacon4ever';
+    const demoPassword = 'notagoodpassword';
+    $('#liveDemo').on('click', function(){
+        postAuthLogin(demoUserName, demoPassword);
+    });
+}
 
 //this code runs exclusivly for the index page
 function indexPage(){
@@ -148,6 +156,7 @@ function indexPage(){
     signUp();
     signInAuht();
     signUpAuth();
+    runDemo();
 }
 
 
