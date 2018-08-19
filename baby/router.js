@@ -5,6 +5,7 @@ const passport = require('passport');
 
 const { router: authRouter, localStrategy, jwtStrategy } = require('../auth');
 const {Baby} = require('./models');
+const {Milestone} = require('../milesotnes');
 
 const router = express.Router();
 
