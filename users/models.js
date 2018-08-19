@@ -23,16 +23,6 @@ const UserSchema = mongoose.Schema({
   }
 });
 
-const babySchema = mongoose.Schema({
-  firstName: String,
-  middleName: String,
-  lastName: String,
-  dateOfBirth: String,
-  birthCity: String,
-  birthWeight: String,
-  birthLength: String,
-  userID: String
-});
 
 const milestonesSchema = mongoose.Schema({
     title: String,
@@ -69,19 +59,6 @@ UserSchema.methods.serialize = function() {
 };
 
 
-babySchema.methods.serialize = function() {
-  return {
-    id: this._id,
-    firstName: this.firstName || '',
-    middleName: this.middleName || '',
-    lastName: this.lastName || '',
-    dateOfBirth: this.dateOfBirth || '',
-    birthCity: this.birthCity || '',
-    birthWeight: this.birthWeight || '',
-    birthLength: this.birthLength || '',
-    userID: this.userID
-  };
-};
 
 milestonesSchema.methods.serialize = function() {
   return {
@@ -95,8 +72,8 @@ milestonesSchema.methods.serialize = function() {
 
 
 const User = mongoose.model('User', UserSchema);
-const Baby = mongoose.model('Baby', babySchema);
+
 const Milestone = mongoose.model('Milestone', milestonesSchema);
 
-module.exports = {User, Baby, Milestone};
+module.exports = {User, Milestone};
 
