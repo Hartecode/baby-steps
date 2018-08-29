@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const { router: authRouter, localStrategy, jwtStrategy } = require('../auth');
-const {Baby} = require('./models');
-const {Milestone} = require('../milesotnes');
+const { Baby } = require('./models');
+const { Milestone } = require('../milestones');
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 router.use(bodyParser.json());
 
 //adding a new baby
-router.post('/baby/:id', jwtAuth, (req, res) => {
+router.post('/:id', jwtAuth, (req, res) => {
   const requiredFields = ['firstName', 'middleName','lastName', 'dateOfBirth', 'birthCity','birthWeight', 'birthLength', 'userID'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -86,7 +86,7 @@ router.post('/baby/:id', jwtAuth, (req, res) => {
 });
 
 //update the selcted baby by its id
-router.put('/baby/:id', jwtAuth, (req, res) => {
+router.put('/:id', jwtAuth, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
@@ -116,14 +116,14 @@ router.put('/baby/:id', jwtAuth, (req, res) => {
 });
 
 //get the full list of babies
-router.get('/baby',  (req, res) => {
+router.get('/',  (req, res) => {
   return Baby.find()
     .then(babys => res.json(babys.map(baby => baby.serialize())))
     .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
 //get babys by userid
-router.get('/baby/:id', jwtAuth, (req, res) => {
+router.get('/:id', jwtAuth, (req, res) => {
   const user = req.params.id;
   Baby
     .find({ 
@@ -134,7 +134,7 @@ router.get('/baby/:id', jwtAuth, (req, res) => {
 });
 
 //get the individal baby by id
-router.get('/baby/single/:id', jwtAuth, (req, res) => {
+router.get('/single/:id', jwtAuth, (req, res) => {
   const id = req.params.id;
   Baby
     .findById(req.params.id)
@@ -144,11 +144,9 @@ router.get('/baby/single/:id', jwtAuth, (req, res) => {
 
 //delete the user's baby from the database
 //code works but might want to add the abillity to delete the milesotnes associated with the baby ***
-router.delete('/baby/:id', jwtAuth,(req, res) => {
+router.delete('/:id', jwtAuth,(req, res) => {
   console.log(req.params.id);
-
   const babysId = req.params.id;
-
   
   Milestone
     .remove({ 
@@ -166,3 +164,5 @@ router.delete('/baby/:id', jwtAuth,(req, res) => {
     })
     .catch(err => res.status(500).json({ message: `Internal server error: ${err}` }));
 });
+
+module.exports = { router };
