@@ -7,6 +7,7 @@ const milestonesSchema = mongoose.Schema({
     title: String,
     description: String,
     date: String,
+    image: String,
     babyID: String
 });
 
@@ -18,6 +19,7 @@ milestonesSchema.methods.serialize = function() {
     title: this.title || '',
     description: this.description || '',
     date: this.date || '',
+    image: this.image || '',
     babyID: this.babyID
   }
 }
