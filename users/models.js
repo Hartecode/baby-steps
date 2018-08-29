@@ -23,16 +23,6 @@ const UserSchema = mongoose.Schema({
   }
 });
 
-
-const milestonesSchema = mongoose.Schema({
-    title: String,
-    description: String,
-    date: String,
-    babyID: String
-});
-
-
-
 //validates the password
 UserSchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
@@ -58,22 +48,6 @@ UserSchema.methods.serialize = function() {
   };
 };
 
-
-
-milestonesSchema.methods.serialize = function() {
-  return {
-    id: this._id,
-    title: this.title || '',
-    description: this.description || '',
-    date: this.date || '',
-    babyID: this.babyID
-  }
-}
-
-
 const User = mongoose.model('User', UserSchema);
 
-const Milestone = mongoose.model('Milestone', milestonesSchema);
-
-module.exports = {User, Milestone};
-
+module.exports = {User};
