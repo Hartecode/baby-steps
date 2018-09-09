@@ -11,7 +11,7 @@ function getBabyInputs() {
 
 	$.ajax({
 		type:'GET',
-        url: `/api/users/baby/single/${babyId}`,
+        url: `/api/baby/single/${babyId}`,
         beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -42,7 +42,7 @@ function postMilestone(){
 		let milestoneDec = $('.miledescription').val();
 		$.ajax({
             type:'POST',
-            url: `/api/users/milestone/${babyId}`,
+            url: `/api/milestone/${babyId}`,
             beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -77,7 +77,7 @@ function clearInputs() {
 function getAllMilestones() {
 	$.ajax({
 		type:'GET',
-        url: `/api/users/milestone/${babyId}`,
+        url: `/api/milestone/${babyId}`,
         beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -199,7 +199,7 @@ $('.milestonelist').on('click', '.deletstone', function() {
 	let delteItemId = $(this).closest('.fullstone').attr('id');
 	$.ajax({
             type:'DELETE',
-            url: `/api/users/milestone/${delteItemId}`,
+            url: `/api/milestone/${delteItemId}`,
             beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -254,7 +254,7 @@ function milestoneEditHtml(id, date, title, desc){
 $('.baby-edit').on('click', '#deletebaby', function() {
 	$.ajax({
             type:'DELETE',
-            url: `/api/users/baby/${babyId}`,
+            url: `/api/baby/${babyId}`,
             beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -290,7 +290,7 @@ $('.baby-edit').on('submit', function(e) {
 	
 	$.ajax({
 		type: "PUT",
-		url: `api/users/baby/${babyId}`,
+		url: `/api/baby/${babyId}`,
 		beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -317,7 +317,7 @@ $('.mile-edit').on('click', '.posbtn', function(e){
 	let desc = $(this).closest('.mile-edit').find('.miledescription-edit').val();
 	$.ajax({
 		type: "PUT",
-		url: `api/users/milestone/${editItemId}`,
+		url: `/api/milestone/${editItemId}`,
 		beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {

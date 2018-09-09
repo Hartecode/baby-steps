@@ -41,7 +41,7 @@ function submitBabyInfo(){
 
 		$.ajax({
 			type:'POST',
-            url: `/api/users/baby/${userId}`,
+            url: `/api/baby/${userId}`,
             beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -100,7 +100,7 @@ function getAllBabyInputs() {
 	
 	$.ajax({
 		type:'GET',
-        url: `/api/users/baby/${userId}`,
+        url: `/api/baby/${userId}`,
         beforeSend : function(xhr) {
 		      // set header if JWT is set
 		      if (window.sessionStorage.accessToken) {
@@ -141,7 +141,7 @@ function getAllBabyInputs() {
 		for(let i = 0; i < ids.length; i++) {
 			$.ajax({
 				type:'GET',
-		        url: `/api/users/milestone/${ids[i]}`,
+		        url: `/api/milestone/${ids[i]}`,
 		        beforeSend : function(xhr) {
 				      // set header if JWT is set
 				      if (window.sessionStorage.accessToken) {
