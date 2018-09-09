@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const passport = require('passport');
 const multer  = require('multer');
 const path = require('path');
@@ -11,9 +12,10 @@ const storage = multer.diskStorage({
     destination: './public/uploads/photos/',
     filename: (req, file, next) => {
         const dateTimeStamp = Date.now();
-        const babyID = req.params.id;
+        const milestoneId = req.params.id;
+        //the user id is in the jwtauth middleware.  jwtauth needs to be in order to find the user id
         const userID = req.user.id;
-        next(null, `${file.fieldname}-${dateTimeStamp}-${userID}-${babyID}${path.extname(file.originalname)}`);
+        next(null, `${dateTimeStamp}-${userID}-${milestoneId}${path.extname(file.originalname)}`);
     }
 });
 
@@ -49,8 +51,7 @@ router.use(bodyParser.json());
 
 //middleware to make sure post was sent correctly
 const postCheck = (req, res) => {
-	console.log(req.body);
-	const requiredFields = ['title', 'description', 'date', 'babyID'];
+	const requiredFields = ['title', 'description', 'date', 'type', 'babyID'];
 	const missingField = requiredFields.find(field => !(field in req.body));
 
 	if (missingField) {
@@ -64,7 +65,7 @@ const postCheck = (req, res) => {
 
 	const baby = req.params.id;
 
-	if(req.body.babyID != baby) {
+	if (req.body.babyID != baby) {
 		return res.status(500).json({
 			code: 400,
 			reason: 'ValidationError',
@@ -74,47 +75,108 @@ const postCheck = (req, res) => {
 	}
 };
 
+// uploads a imahe and savs the image name to the selected milestone 
+const uploadNewImage = (req, res, milestone) => {
+	upload(req, res, (err) => {
+		if (err) {
+			res.json({err: err});
+		} else {
+			if (req.file == undefined) {
+				res.json({ msg: 'Error: No File Selected'})
+			} else {
+				milestone.image = req.file.filename;
+
+				milestone.save(function (err, updatedMilestone) {
+				    if (err) return handleError(err);
+					res.send(updatedMilestone);
+					console.log('success');
+					console.log(updatedMilestone);
+				});
+			}
+		}
+	});
+}
+
+//this function finds and removes images from the fielsysten
+const removeImgFromSystem = (milestone) => {
+	fs.unlink(`./public/uploads/photos/${milestone.image}`, (err) => {
+	    if (err) return res.status(404).json({ ErrorMsg: 'Unable to locate the image', SystemErrorMsg: err });
+
+	    console.log('Image deleted!');
+	});
+
+}
+
+// add a photo to a milestone
+router.post('/upload/img/:id', jwtAuth, (req, res) => {
+	const milestoneId = req.params.id;
+
+	Milestone
+		.findById(milestoneId)
+		.then( (milestone) => {
+			if (milestone.image === '' || milestone.image === null || milestone.image === undefined) {
+				uploadNewImage(req, res, milestone);
+			} else {
+				console.log(milestone);
+				res.status(417).json({
+					ErrorMsg: 'Image already posted. To update please send a put request',
+					imageCurrentName: milestone.image
+				});
+			}
+		})
+		.catch( err =>  res.status(404).json({ ErrorMsg: 'The ID is incorrect', SystemErrorMsg: err }));
+});
+
+
 //add a new milestone
 router.post('/:id', jwtAuth, (req, res) => {
-	console.log(req);
+	//run check to make stue there is no errors;
 	postCheck(req, res);
-	
 
-	let {title = '', description = '', date = '', babyID = ''} = req.body;
-	console.log(title)
+	let {title = '', description = '', date = '', type = '', babyID = ''} = req.body;
+	
 	title = title.trim();
 	description = description.trim();
 	date = date.trim();
+	type = type.trim();
 	babyID = babyID.trim();
-	let image = null;
-	if (req.file != undefined) {
-		image = `uploads/photos/${req.file.filename}`;
-	}
-	console.log(req.body);
 
 	return Milestone.create({
 		title,
 		description,
 		date,
-		image: image,
+		type,
 		babyID
 	})
 	.then(mile => res.status(201).json(mile.serialize()))
 	.catch(err => {
     	// Forward validation errors on to the client, otherwise give a 500
     	// error because something unexpected has happened
-		if (err.reason === 'ValidationError') {
-			return res.status(err.code).json(err);
-		}
+		if (err.reason === 'ValidationError') return res.status(err.code).json(err);
+
     	console.log(err);
     	res.status(500).json({code: 500, message: `Internal server error: ${err}`});
     });
 
 });
 
+//this will date the image by removing the old image and then adding a new one
+router.put('/upload/img/:id', jwtAuth, (req, res) => {
+	const milestoneId = req.params.id;
+
+	Milestone
+		.findById(milestoneId)
+		.then(milestone => {
+			//the image is deleted from the fie system
+			removeImgFromSystem(milestone);
+			//upload the imge and added the name to the milestone
+			uploadNewImage(req, res, milestone);
+		})
+		.catch( err => res.status(404).json({ErrorMsg: 'The ID is incorrect', SystemErrorMsg: err}));	
+});
 
 //update the selected milestone post
-router.put('/:id', jwtAuth, (req, res) =>{
+router.put('/:id', jwtAuth, (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
@@ -124,7 +186,7 @@ router.put('/:id', jwtAuth, (req, res) =>{
  	}
 
 	const toUpdate = {};
-	const requiredFields = ['id', 'date','title', 'description'];
+	const requiredFields = ['id', 'date','title', 'type', 'description'];
 
 
 	requiredFields.forEach(field => {
@@ -137,7 +199,6 @@ router.put('/:id', jwtAuth, (req, res) =>{
 	    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
 	    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
 	    .then(() => {
-      		console.log(`Updating user \`${req.params.id}\``);
       		res.status(204).end();
     	})
  		.catch(err => res.status(500).json({ message: 'Internal server error' }));
@@ -146,32 +207,47 @@ router.put('/:id', jwtAuth, (req, res) =>{
 
 //get the full list of milestones
 router.get('/', (req, res) => {
-  return Milestone.find()
-    .then(miles => res.json(miles.map(mile => mile.serialize())))
-    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+	return Milestone.find()
+    	.then(miles => res.json(miles.map(mile => mile.serialize())))
+    	.catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
 //get baby by userid
 router.get('/:id', jwtAuth, (req, res) => {
-  const baby = req.params.id;
-  Milestone
-    .find({ 
-      babyID: baby
-    })
-    .then(miles => res.json(miles.map(mile => mile.serialize())))
-    .catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
+	const baby = req.params.id;
+
+	Milestone
+		.find({ 
+      		babyID: baby
+    	})
+    	.then(miles => res.json(miles.map(mile => mile.serialize())))
+    	.catch(err => res.status(500).json({message: `Internal server error : ${err}`}));
 });
 
 //delete the miles's baby from the database by using the id of the milestone
-router.delete('/:id', jwtAuth, (req, res) => {
-  console.log(req.params.id);
-  Milestone
-    .findByIdAndRemove(req.params.id)
-      .then(() => {
-        console.log(`You have deleted post id:${req.params.id}`);
-        res.status(204).end();
-      })
-      .catch(err => res.status(500).json({ message: 'Internal server error' }));
+router.delete('/:id', jwtAuth, (req, res, next) => {
+	const milestoneId = req.params.id;
+
+	Milestone
+		.findById(milestoneId)
+		.then( milestone => {
+			const milestonePost = milestone;
+			// console.log(milestonePost);
+			milestone
+				.remove()
+				.then( post => {
+					if (post) {
+						if (milestonePost.image !== '' || milestonePost.image !== null || milestonePost.image !== undefined) {
+							removeImgFromSystem(milestonePost);
+						}
+						res.status(204).end();
+					} else {
+						next();
+					}
+				})
+				.catch(next);
+		})
+		.catch(err =>  res.status(404).json({ ErrorMsg: 'The ID is incorrect' }));
 });
 
 module.exports = { router };
